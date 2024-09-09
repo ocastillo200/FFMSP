@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
 
     if (mode == "-Greedy")
     {
-        solution = constructGreedySolution(stringLength, alphabet, omega, 0, threshold);
+        solution = constructGreedySolution(stringLength, alphabet, omega, 1, threshold);
     }
     else if (mode == "-GreedyA")
     {

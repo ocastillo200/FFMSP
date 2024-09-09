@@ -7,6 +7,7 @@
 
 using namespace std;
 
+// LISTA
 int findBestStartPosition(const vector<string> &omega, int stringLength)
 {
     vector<unordered_map<char, int> > positionCharCount(stringLength);
@@ -31,12 +32,18 @@ int findBestStartPosition(const vector<string> &omega, int stringLength)
     return bestPosition;
 }
 
-int hammingDistance(const string &s1, const string &s2)
+// REVISARLA
+int hammingDistance(const string &s1, const string &s2, int position)
 {
     int distance = 0;
     for (size_t i = 0; i < s1.length(); ++i)
     {
-        if (s1[i] != s2[i])
+        int pos = (position + i) % s1.length();
+        if (s1[pos] == ' ')
+        {
+            break;
+        }
+        if (s1[pos] != s2[pos])
         {
             distance++;
         }
@@ -44,26 +51,19 @@ int hammingDistance(const string &s1, const string &s2)
     return distance;
 }
 
-int calculateCost(const string &currentSolution, const vector<string> &omega, double t, const vector<bool> &alreadySatisfied)
+// REVISARLA
+int calculateCost(const string &currentSolution, const vector<string> &omega, double t, const vector<bool> &alreadySatisfied, int position)
 {
-    int stringLength = currentSolution.length();
-    int requiredDistance = t * stringLength;
     int count = 0;
     for (size_t i = 0; i < omega.size(); ++i)
     {
-        if (!alreadySatisfied[i])
-        {
-            int distance = hammingDistance(currentSolution, omega[i]);
-            if (distance >= requiredDistance)
-            {
-                count++;
-            }
-        }
+        int distance = hammingDistance(currentSolution, omega[i], position);
+        count += distance;
     }
     return count;
 }
 
-char chooseNextCharacter(const string &currentSolution, int position, const vector<char> &alphabet, const vector<string> &omega, double epsilon, double t, const vector<bool> &alreadySatisfied)
+char chooseNextCharacter(const string &currentSolution, int position, const vector<char> &alphabet, const vector<string> &omega, double epsilon, double t, const vector<bool> &alreadySatisfied, int count)
 {
     random_device rd;
     mt19937 gen(rd());
@@ -71,45 +71,50 @@ char chooseNextCharacter(const string &currentSolution, int position, const vect
     double randomValue = dis(gen);
     if (randomValue <= epsilon)
     {
-        int bestCost = -1;
+        int bestCost = 0;
         char bestChar = alphabet[0];
-
         for (char c : alphabet)
         {
             string tempSolution = currentSolution;
             tempSolution[position] = c;
-
-            int cost = calculateCost(tempSolution, omega, t, alreadySatisfied);
+            int cost = calculateCost(tempSolution, omega, t, alreadySatisfied, count);
             if (cost > bestCost)
             {
                 bestCost = cost;
                 bestChar = c;
             }
         }
+        if (bestCost == 0)
+        {
+            unordered_map<char, int> charFrequency;
+            for (const auto &line : omega)
+            {
+                charFrequency[line[position]]++;
+            }
+            char leastFrequentChar = alphabet[0];
+            int minFrequency = charFrequency[leastFrequentChar];
+
+            for (char c : alphabet)
+            {
+                if (charFrequency[c] < minFrequency)
+                {
+                    minFrequency = charFrequency[c];
+                    leastFrequentChar = c;
+                }
+            }
+            return leastFrequentChar;
+        }
         return bestChar;
     }
     else
     {
-        unordered_map<char, int> charFrequency;
-        for (const auto &line : omega)
-        {
-            charFrequency[line[position]]++;
-        }
-        char leastFrequentChar = alphabet[0];
-        int minFrequency = charFrequency[leastFrequentChar];
-
-        for (char c : alphabet)
-        {
-            if (charFrequency[c] < minFrequency)
-            {
-                minFrequency = charFrequency[c];
-                leastFrequentChar = c;
-            }
-        }
-        return leastFrequentChar;
+        uniform_int_distribution<> dis(0, alphabet.size() - 1);
+        int randomIndex = dis(gen);
+        return alphabet[randomIndex];
     }
 }
 
+// REVISARLA
 string constructGreedySolution(int stringLength, const vector<char> &alphabet, const vector<string> &omega, double epsilon, double t)
 {
     string currentSolution(stringLength, ' ');
@@ -118,18 +123,18 @@ string constructGreedySolution(int stringLength, const vector<char> &alphabet, c
     for (int i = 0; i < stringLength; ++i)
     {
         int position = (bestStartPosition + i) % stringLength;
-        char nextChar = chooseNextCharacter(currentSolution, position, alphabet, omega, epsilon, t, alreadySatisfied);
+        char nextChar = chooseNextCharacter(currentSolution, position, alphabet, omega, epsilon, t, alreadySatisfied, i);
         currentSolution[position] = nextChar;
-        for (size_t j = 0; j < omega.size(); ++j)
-        {
-            if (!alreadySatisfied[j])
-            {
-                if (hammingDistance(currentSolution, omega[j]) >= t * stringLength)
-                {
-                    alreadySatisfied[j] = true;
-                }
-            }
-        }
+        /*  for (size_t j = 0; j < omega.size(); ++j)
+          {
+              if (!alreadySatisfied[j])
+              {
+                  if (hammingDistance(currentSolution, omega[j]) >= t * stringLength)
+                  {
+                      alreadySatisfied[j] = true;
+                  }
+              }
+          } */
     }
     return currentSolution;
 }
