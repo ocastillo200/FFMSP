@@ -4,8 +4,11 @@
 #include <unordered_map>
 #include <random>
 #include <algorithm>
+#include <pair>
 
 using namespace std;
+
+QUALITY = 0;
 
 // LISTA
 int findBestStartPosition(const vector<string> &omega, int stringLength)
@@ -36,14 +39,13 @@ int findBestStartPosition(const vector<string> &omega, int stringLength)
 int hammingDistance(const string &s1, const string &s2, int position)
 {
     int distance = 0;
-    for (size_t i = 0; i < s1.length(); ++i)
+    for (int i = position; i < s1.length(); ++i)
     {
-        int pos = (position + i) % s1.length();
-        if (s1[pos] == ' ')
+        if (s1[i] == ' ')
         {
             break;
         }
-        if (s1[pos] != s2[pos])
+        if (s1[i] != s2[i])
         {
             distance++;
         }
@@ -52,18 +54,22 @@ int hammingDistance(const string &s1, const string &s2, int position)
 }
 
 // REVISARLA
-int calculateCost(const string &currentSolution, const vector<string> &omega, double t, const vector<bool> &alreadySatisfied, int position)
+int calculateCost(const string &currentSolution, const vector<string> &omega, double t, const vector<bool> &alreadySatisfied, int position, int lenght)
 {
     int count = 0;
+    int threshold = currentSolution.size() * t;
     for (size_t i = 0; i < omega.size(); ++i)
     {
         int distance = hammingDistance(currentSolution, omega[i], position);
-        count += distance;
+        if (distance >= threshold)
+        {
+            count++;
+        }
     }
     return count;
 }
 
-char chooseNextCharacter(const string &currentSolution, int position, const vector<char> &alphabet, const vector<string> &omega, double epsilon, double t, const vector<bool> &alreadySatisfied, int count)
+char chooseNextCharacter(const string &currentSolution, int position, const vector<char> &alphabet, const vector<string> &omega, double epsilon, double t, const vector<bool> &alreadySatisfied, int lenght, int bestStartPosition)
 {
     random_device rd;
     mt19937 gen(rd());
@@ -71,20 +77,22 @@ char chooseNextCharacter(const string &currentSolution, int position, const vect
     double randomValue = dis(gen);
     if (randomValue <= epsilon)
     {
-        int bestCost = 0;
+        int bestCost = calculateCost(currentSolution, omega, t, alreadySatisfied, bestStartPosition, lenght);
         char bestChar = alphabet[0];
+        bool didcostchange = false;
         for (char c : alphabet)
         {
             string tempSolution = currentSolution;
             tempSolution[position] = c;
-            int cost = calculateCost(tempSolution, omega, t, alreadySatisfied, count);
+            int cost = calculateCost(tempSolution, omega, t, alreadySatisfied, bestStartPosition, lenght);
             if (cost > bestCost)
             {
                 bestCost = cost;
                 bestChar = c;
+                didcostchange = true;
             }
         }
-        if (bestCost == 0)
+        if (!didcostchange)
         {
             unordered_map<char, int> charFrequency;
             for (const auto &line : omega)
@@ -115,7 +123,7 @@ char chooseNextCharacter(const string &currentSolution, int position, const vect
 }
 
 // REVISARLA
-string constructGreedySolution(int stringLength, const vector<char> &alphabet, const vector<string> &omega, double epsilon, double t)
+pair<int, string> constructGreedySolution(int stringLength, const vector<char> &alphabet, const vector<string> &omega, double epsilon, double t)
 {
     string currentSolution(stringLength, ' ');
     vector<bool> alreadySatisfied(omega.size(), false);
@@ -123,7 +131,7 @@ string constructGreedySolution(int stringLength, const vector<char> &alphabet, c
     for (int i = 0; i < stringLength; ++i)
     {
         int position = (bestStartPosition + i) % stringLength;
-        char nextChar = chooseNextCharacter(currentSolution, position, alphabet, omega, epsilon, t, alreadySatisfied, i);
+        char nextChar = chooseNextCharacter(currentSolution, position, alphabet, omega, epsilon, t, alreadySatisfied, i, bestStartPosition);
         currentSolution[position] = nextChar;
         /*  for (size_t j = 0; j < omega.size(); ++j)
           {
@@ -136,5 +144,5 @@ string constructGreedySolution(int stringLength, const vector<char> &alphabet, c
               }
           } */
     }
-    return currentSolution;
+    return makepair(bestStartPosition, currentSolution);
 }

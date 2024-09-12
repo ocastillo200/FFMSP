@@ -23,7 +23,6 @@ int main(int argc, char *argv[])
         cerr << "Uso: " << argv[0] << " [-Greedy | -GreedyA] -i <instancia-problema> -th <threshold> -e <valor epsilon para greedy aleatorizado>" << endl;
         return 1;
     }
-
     string mode = argv[1];
     string filename;
     double threshold;
