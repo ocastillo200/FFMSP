@@ -1,8 +1,7 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-#include <string>
-#include <vector>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -19,6 +18,6 @@ int findBestStartPosition(const vector<string> &sequences, int stringLength);
 char chooseNextCharacter(const string &currentSolution, int position, const vector<char> &alphabet, const vector<string> &sequences, double epsilon, double t, const vector<bool> &alreadySatisfied);
 
 // Función principal que construye la solución utilizando el algoritmo greedy aleatorizado
-string constructGreedySolution(int stringLength, const vector<char> &alphabet, const vector<string> &sequences, double epsilon, double t);
+pair<int, string> constructGreedySolution(int stringLength, const vector<char> &alphabet, const vector<string> &sequences, double epsilon, double t);
 
 #endif // FUNCTIONS_H

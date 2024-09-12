@@ -1,10 +1,9 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
-#include <string>
 #include <sstream>
 #include <cstdlib>
 #include "greedy.h"
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -68,7 +67,7 @@ int main(int argc, char *argv[])
     }
     infile.close();
 
-    string solution;
+    pair<int, string> solution;
 
     if (mode == "-Greedy")
     {
@@ -84,6 +83,9 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    cout << "Solución construida: " << solution << endl;
+    double quality = solution.first / (double)omega.size() * 100;
+
+    cout << "Solución construida: " << solution.second << endl;
+    cout << "Calidad de la solución: " << quality << "%" << endl;
     return 0;
 }

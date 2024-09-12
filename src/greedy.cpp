@@ -3,12 +3,9 @@
 #include <fstream>
 #include <unordered_map>
 #include <random>
-#include <algorithm>
-#include <pair>
+#include <bits/stdc++.h>
 
 using namespace std;
-
-QUALITY = 0;
 
 // LISTA
 int findBestStartPosition(const vector<string> &omega, int stringLength)
@@ -35,7 +32,6 @@ int findBestStartPosition(const vector<string> &omega, int stringLength)
     return bestPosition;
 }
 
-// REVISARLA
 int hammingDistance(const string &s1, const string &s2, int position)
 {
     int distance = 0;
@@ -53,7 +49,6 @@ int hammingDistance(const string &s1, const string &s2, int position)
     return distance;
 }
 
-// REVISARLA
 int calculateCost(const string &currentSolution, const vector<string> &omega, double t, const vector<bool> &alreadySatisfied, int position, int lenght)
 {
     int count = 0;
@@ -133,16 +128,8 @@ pair<int, string> constructGreedySolution(int stringLength, const vector<char> &
         int position = (bestStartPosition + i) % stringLength;
         char nextChar = chooseNextCharacter(currentSolution, position, alphabet, omega, epsilon, t, alreadySatisfied, i, bestStartPosition);
         currentSolution[position] = nextChar;
-        /*  for (size_t j = 0; j < omega.size(); ++j)
-          {
-              if (!alreadySatisfied[j])
-              {
-                  if (hammingDistance(currentSolution, omega[j]) >= t * stringLength)
-                  {
-                      alreadySatisfied[j] = true;
-                  }
-              }
-          } */
     }
-    return makepair(bestStartPosition, currentSolution);
+    int quality = calculateCost(currentSolution, omega, t, alreadySatisfied, bestStartPosition, stringLength);
+    pair<int, string> result = make_pair(quality, currentSolution);
+    return result;
 }
