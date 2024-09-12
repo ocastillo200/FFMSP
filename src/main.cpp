@@ -87,5 +87,6 @@ int main(int argc, char *argv[])
 
     cout << "Solución construida: " << solution.second << endl;
     cout << "Calidad de la solución: " << quality << "%" << endl;
+    cout << "(" << solution.first << " / " << omega.size() << ")" << endl;
     return 0;
 }

@@ -7,7 +7,6 @@
 
 using namespace std;
 
-// LISTA
 int findBestStartPosition(const vector<string> &omega, int stringLength)
 {
     vector<unordered_map<char, int> > positionCharCount(stringLength);
@@ -117,7 +116,6 @@ char chooseNextCharacter(const string &currentSolution, int position, const vect
     }
 }
 
-// REVISARLA
 pair<int, string> constructGreedySolution(int stringLength, const vector<char> &alphabet, const vector<string> &omega, double epsilon, double t)
 {
     string currentSolution(stringLength, ' ');
