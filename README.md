@@ -18,5 +18,5 @@ g++ main.cpp greedy.cpp
 ```
 3. Ejecutar el programa
 ```bash
-./a.out -<Greedy|GreedyA> -i <instancia.txt> -th <treshold {0,1}> -e <valor epsilon para desiciones aleatorias {0,1}>
+./a.out -<Greedy|GreedyA> -i <instancia.txt> -th <threshold {0,1}> -e <valor epsilon para desiciones aleatorias {0,1}>
 ```
