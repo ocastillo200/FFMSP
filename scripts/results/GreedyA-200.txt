@@ -2,63 +2,63 @@ Ejecución de 300 archivos con 200 palabras, con un threshold de 0.75 y epsilon 
 Resultados:
 
 Cantidad de caracteres: 300
-Media: 62.57% (187.71 caracteres)
-Desviación estándar: 3.12492% (9.37475 caracteres)
-Tiempo de ejecución: 11849 ms
-Tiempo de ejecución promedio: 59.245 ms
+Media: 62.295% (124.59 palabras)
+Desviación estándar: 3.54971% (7.09943 palabras)
+Tiempo de ejecución: 11302 ms
+Tiempo de ejecución promedio: 56.51 ms
 
 Cantidad de caracteres: 600
-Media: 62.565% (375.39 caracteres)
-Desviación estándar: 3.59002% (21.5401 caracteres)
-Tiempo de ejecución: 12023 ms
-Tiempo de ejecución promedio: 60.115 ms
+Media: 61.51% (123.02 palabras)
+Desviación estándar: 3.29923% (6.59845 palabras)
+Tiempo de ejecución: 11450 ms
+Tiempo de ejecución promedio: 57.25 ms
 
 Cantidad de caracteres: 800
-Media: 62.5% (500 caracteres)
-Desviación estándar: 3.57211% (28.5769 caracteres)
-Tiempo de ejecución: 12075 ms
-Tiempo de ejecución promedio: 60.375 ms
+Media: 62.085% (124.17 palabras)
+Desviación estándar: 3.80727% (7.61453 palabras)
+Tiempo de ejecución: 11259 ms
+Tiempo de ejecución promedio: 56.295 ms
 
 
 Ejecución de 300 archivos con 200 palabras, con un threshold de 0.8 y epsilon de 0.2
 Resultados:
 
 Cantidad de caracteres: 300
-Media: 8.81% (26.43 caracteres)
-Desviación estándar: 2.05764% (6.17293 caracteres)
-Tiempo de ejecución: 11534 ms
-Tiempo de ejecución promedio: 57.67 ms
+Media: 8.95% (17.9 palabras)
+Desviación estándar: 2.06216% (4.12432 palabras)
+Tiempo de ejecución: 11283 ms
+Tiempo de ejecución promedio: 56.415 ms
 
 Cantidad de caracteres: 600
-Media: 8.75% (52.5 caracteres)
-Desviación estándar: 2.07183% (12.431 caracteres)
-Tiempo de ejecución: 11741 ms
-Tiempo de ejecución promedio: 58.705 ms
+Media: 9.115% (18.23 palabras)
+Desviación estándar: 2.0382% (4.07641 palabras)
+Tiempo de ejecución: 11463 ms
+Tiempo de ejecución promedio: 57.315 ms
 
 Cantidad de caracteres: 800
-Media: 9.015% (72.12 caracteres)
-Desviación estándar: 2.27866% (18.2293 caracteres)
-Tiempo de ejecución: 11596 ms
-Tiempo de ejecución promedio: 57.98 ms
+Media: 8.89% (17.78 palabras)
+Desviación estándar: 2.16169% (4.32338 palabras)
+Tiempo de ejecución: 11169 ms
+Tiempo de ejecución promedio: 55.845 ms
 
 
 Ejecución de 300 archivos con 200 palabras, con un threshold de 0.85 y epsilon de 0.2
 Resultados:
 
 Cantidad de caracteres: 300
-Media: 0.07% (0.21 caracteres)
-Desviación estándar: 0.18735% (0.56205 caracteres)
-Tiempo de ejecución: 11549 ms
-Tiempo de ejecución promedio: 57.745 ms
+Media: 0.06% (0.12 palabras)
+Desviación estándar: 0.1772% (0.354401 palabras)
+Tiempo de ejecución: 11220 ms
+Tiempo de ejecución promedio: 56.1 ms
 
 Cantidad de caracteres: 600
-Media: 0.075% (0.45 caracteres)
-Desviación estándar: 0.192029% (1.15217 caracteres)
-Tiempo de ejecución: 11719 ms
-Tiempo de ejecución promedio: 58.595 ms
+Media: 0.145% (0.29 palabras)
+Desviación estándar: 0.276541% (0.553082 palabras)
+Tiempo de ejecución: 11388 ms
+Tiempo de ejecución promedio: 56.94 ms
 
 Cantidad de caracteres: 800
-Media: 0.105% (0.84 caracteres)
-Desviación estándar: 0.226881% (1.81505 caracteres)
-Tiempo de ejecución: 11744 ms
-Tiempo de ejecución promedio: 58.72 ms
+Media: 0.1% (0.2 palabras)
+Desviación estándar: 0.2% (0.4 palabras)
+Tiempo de ejecución: 11590 ms
+Tiempo de ejecución promedio: 57.95 ms

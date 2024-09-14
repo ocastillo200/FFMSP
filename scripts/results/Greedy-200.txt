@@ -2,54 +2,54 @@ Ejecución de 300 archivos con 200 palabras, con un threshold de 0.75
 Resultados:
 
 Cantidad de caracteres: 300
-Media: 88.285% (264.855 caracteres)
-Tiempo de ejecución: 57624 ms
-Tiempo de ejecución promedio: 288.12 ms
+Media: 88.285% (176.57 palabras)
+Tiempo de ejecución: 54712 ms
+Tiempo de ejecución promedio: 273.56 ms
 
 Cantidad de caracteres: 600
-Media: 88.195% (529.17 caracteres)
-Tiempo de ejecución: 57444 ms
-Tiempo de ejecución promedio: 287.22 ms
+Media: 88.195% (176.39 palabras)
+Tiempo de ejecución: 54748 ms
+Tiempo de ejecución promedio: 273.74 ms
 
 Cantidad de caracteres: 800
-Media: 88.1% (704.8 caracteres)
-Tiempo de ejecución: 57461 ms
-Tiempo de ejecución promedio: 287.305 ms
+Media: 88.1% (176.2 palabras)
+Tiempo de ejecución: 54780 ms
+Tiempo de ejecución promedio: 273.9 ms
 
 
 Ejecución de 300 archivos con 200 palabras, con un threshold de 0.8
 Resultados:
 
 Cantidad de caracteres: 300
-Media: 32.885% (98.655 caracteres)
-Tiempo de ejecución: 56392 ms
-Tiempo de ejecución promedio: 281.96 ms
+Media: 32.885% (65.77 palabras)
+Tiempo de ejecución: 54869 ms
+Tiempo de ejecución promedio: 274.345 ms
 
 Cantidad de caracteres: 600
-Media: 32.82% (196.92 caracteres)
-Tiempo de ejecución: 56421 ms
-Tiempo de ejecución promedio: 282.105 ms
+Media: 32.82% (65.64 palabras)
+Tiempo de ejecución: 54772 ms
+Tiempo de ejecución promedio: 273.86 ms
 
 Cantidad de caracteres: 800
-Media: 33.24% (265.92 caracteres)
-Tiempo de ejecución: 56707 ms
-Tiempo de ejecución promedio: 283.535 ms
+Media: 33.24% (66.48 palabras)
+Tiempo de ejecución: 55265 ms
+Tiempo de ejecución promedio: 276.325 ms
 
 
 Ejecución de 300 archivos con 200 palabras, con un threshold de 0.85
 Resultados:
 
 Cantidad de caracteres: 300
-Media: 1.46% (4.38 caracteres)
-Tiempo de ejecución: 56637 ms
-Tiempo de ejecución promedio: 283.185 ms
+Media: 1.46% (2.92 palabras)
+Tiempo de ejecución: 55026 ms
+Tiempo de ejecución promedio: 275.13 ms
 
 Cantidad de caracteres: 600
-Media: 1.565% (9.39 caracteres)
-Tiempo de ejecución: 56829 ms
-Tiempo de ejecución promedio: 284.145 ms
+Media: 1.565% (3.13 palabras)
+Tiempo de ejecución: 54744 ms
+Tiempo de ejecución promedio: 273.72 ms
 
 Cantidad de caracteres: 800
-Media: 1.405% (11.24 caracteres)
-Tiempo de ejecución: 56832 ms
-Tiempo de ejecución promedio: 284.16 ms
+Media: 1.405% (2.81 palabras)
+Tiempo de ejecución: 54799 ms
+Tiempo de ejecución promedio: 273.995 ms
