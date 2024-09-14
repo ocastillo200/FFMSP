@@ -24,14 +24,12 @@ int hammingDistance(const std::string &s1, const std::string &s2, int position);
  * @param currentSolution La solución parcial actual.
  * @param omega Vector de cadenas de entrada.
  * @param t Umbral de similitud (entre 0 y 1).
- * @param alreadySatisfied Vector que indica qué cadenas ya están satisfechas (no se usa en esta implementación).
  * @param position Posición desde la cual se comienza a calcular la distancia de Hamming (no se usa en esta implementación).
  * @param lenght Longitud de la solución (no se usa en esta implementación).
  * @return El número de cadenas que no cumplen con el umbral de similitud.
  */
 int calculateCost(const std::string &currentSolution, const std::vector<std::string> &omega,
-                  double t, const std::vector<bool> &alreadySatisfied, int position,
-                  int lenght);
+                  double t, int position, int lenght);
 
 /**
  * Encuentra la mejor posición de inicio para la solución greedy.
@@ -59,7 +57,6 @@ int findBestStartPosition(const std::vector<std::string> &sequences, int stringL
  * @param omega El conjunto de cadenas de entrada.
  * @param epsilon El factor de aleatorización (entre 0 y 1).
  * @param t El umbral de similitud para considerar una cadena como satisfecha.
- * @param alreadySatisfied Vector que indica qué cadenas ya están satisfechas.
  * @param lenght La longitud actual de la solución parcial.
  * @param bestStartPosition La mejor posición de inicio determinada previamente.
  * @return El carácter elegido para la posición actual.
@@ -67,7 +64,7 @@ int findBestStartPosition(const std::vector<std::string> &sequences, int stringL
 char chooseNextCharacter(const std::string &currentSolution, int position,
                          const std::vector<char> &alphabet,
                          const std::vector<std::string> &omega, double epsilon, double t,
-                         const std::vector<bool> &alreadySatisfied, int lenght,
+                         int lenght,
                          int bestStartPosition);
 
 /**

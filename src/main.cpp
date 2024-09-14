@@ -77,6 +77,6 @@ int main(int argc, char *argv[]) {
     cout << "Tiempo de ejecución: "
          << chrono::duration_cast<chrono::milliseconds>(end - start).count()
          << " ms" << endl;
-    cout << "Calidad de la solución: " << quality << "% (" << (quality / 100) * omega.size() << " caracteres)" << endl;
+    cout << "Calidad de la solución: " << quality << "% (" << (quality / 100) * omega.size() << " palabras)" << endl;
     return 0;
 }

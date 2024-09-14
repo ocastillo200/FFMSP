@@ -39,9 +39,7 @@ int hammingDistance(const string &s1, const string &s2, int position) {
     return distance;
 }
 
-int calculateCost(const string &currentSolution, const vector<string> &omega,
-                  double t, const vector<bool> &alreadySatisfied, int position,
-                  int lenght) {
+int calculateCost(const string &currentSolution, const vector<string> &omega, double t, int position, int lenght) {
     int count = 0;
     int threshold = currentSolution.size() * t;
     for (size_t i = 0; i < omega.size(); ++i) {
@@ -53,24 +51,20 @@ int calculateCost(const string &currentSolution, const vector<string> &omega,
     return count;
 }
 
-char chooseNextCharacter(const string &currentSolution, int position,
-                         const vector<char> &alphabet,
-                         const vector<string> &omega, double epsilon, double t,
-                         const vector<bool> &alreadySatisfied, int lenght,
-                         int bestStartPosition) {
+char chooseNextCharacter(const string &currentSolution, int position, const vector<char> &alphabet, const vector<string> &omega, double epsilon, double t, int lenght, int bestStartPosition) {
     random_device rd;
     mt19937 gen(rd());
     uniform_real_distribution<> dis(0.0, 1.0);
     double randomValue = dis(gen);
     if (randomValue <= epsilon) {
-        int bestCost = calculateCost(currentSolution, omega, t, alreadySatisfied,
+        int bestCost = calculateCost(currentSolution, omega, t,
                                      bestStartPosition, lenght);
         char bestChar = alphabet[0];
         bool didcostchange = false;
         for (char c : alphabet) {
             string tempSolution = currentSolution;
             tempSolution[position] = c;
-            int cost = calculateCost(tempSolution, omega, t, alreadySatisfied,
+            int cost = calculateCost(tempSolution, omega, t,
                                      bestStartPosition, lenght);
             if (cost > bestCost) {
                 bestCost = cost;
@@ -102,22 +96,16 @@ char chooseNextCharacter(const string &currentSolution, int position,
     }
 }
 
-pair<int, string> constructGreedySolution(int stringLength,
-        const vector<char> &alphabet,
-        const vector<string> &omega,
-        double epsilon, double t) {
+pair<int, string> constructGreedySolution(int stringLength, const vector<char> &alphabet, const vector<string> &omega,double epsilon, double t) {
     string currentSolution(stringLength, ' ');
-    vector<bool> alreadySatisfied(omega.size(), false);
     int bestStartPosition = findBestStartPosition(omega, stringLength);
     for (int i = 0; i < stringLength; ++i) {
         int position = (bestStartPosition + i) % stringLength;
         char nextChar =
-            chooseNextCharacter(currentSolution, position, alphabet, omega, epsilon,
-                                t, alreadySatisfied, i, bestStartPosition);
+            chooseNextCharacter(currentSolution, position, alphabet, omega, epsilon, t, i, bestStartPosition);
         currentSolution[position] = nextChar;
     }
-    int quality = calculateCost(currentSolution, omega, t, alreadySatisfied,
-                                bestStartPosition, stringLength);
+    int quality = calculateCost(currentSolution, omega, t, bestStartPosition, stringLength);
     pair<int, string> result = make_pair(quality, currentSolution);
     return result;
 }
