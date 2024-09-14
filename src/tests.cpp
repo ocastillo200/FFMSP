@@ -76,14 +76,13 @@ int main(int argc, char *argv[]) {
     for (const auto &solution : filesSolutions) {
         cout << endl << "Cantidad de caracteres: " << solution.first << endl;
         double mean = accumulate(solution.second.begin(), solution.second.end(), 0.0) / solution.second.size();
-        cout << "Media: " << mean << "% (" <<  mean * (stod(solution.first) / 100) << " caracteres)" << endl;
+        cout << "Media: " << mean << "% (" <<  mean * (amountOfStringsInt / 100) << " palabras)" << endl;
         if (mode == "-GreedyA") {
             double standardDeviation = calculateStandardDeviation(solution.second, mean);
-            cout << "Desviación estándar: " << standardDeviation << "% (" << standardDeviation * (stod(solution.first) / 100) << " caracteres)" << endl;
+            cout << "Desviación estándar: " << standardDeviation << "% (" << standardDeviation * (amountOfStringsInt / 100) << " palabras)" << endl;
         }
         cout << "Tiempo de ejecución: " << times[solution.first] << " ms" << endl;
         cout << "Tiempo de ejecución promedio: " << times[solution.first] / amountOfStringsInt << " ms" << endl;
     }
-
     return 0;
 }
