@@ -10,21 +10,14 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-    if (argc < 4) {
-        cerr << "Uso: " << argv[0]
-             << " [-Greedy | -GreedyA] -i <instancia-problema> -th <threshold> -e "
-             "<valor epsilon para greedy aleatorizado>"
-             << endl;
-        return 1;
-    }
     vector<string> args(argv, argv + argc);
     const string mode =
         containsFlag(argc, args, "GreedyA") ? "-GreedyA" : "-Greedy";
     const string filename = readParam(argc, args, "i");
     const string tresholdP = readParam(argc, args, "th");
     const string epsilonP = readParam(argc, args, "e");
-    if (filename.empty() || tresholdP.empty()) {
-        cerr << "Faltan argumentos obligatorios." << endl;
+    if (filename.empty() || tresholdP.empty() || (mode == "-GreedyA" && epsilonP.empty())) {
+        cerr << "Uso: " << argv[0] << " [-Greedy | -GreedyA] -i <instancia> -th <threshold> -e <epsilon (para greedy aleatorizado)>" << endl;
         return 1;
     }
     double threshold, epsilon;
@@ -35,10 +28,6 @@ int main(int argc, char *argv[]) {
             return 1;
         }
         if (mode == "-GreedyA") {
-            if (epsilonP.empty()) {
-                cerr << "Falta el valor de epsilon." << endl;
-                return 1;
-            }
             epsilon = stod(epsilonP);
             if (epsilon < 0 || epsilon > 1) {
                 cerr << "El valor de epsilon debe estar entre 0 y 1." << endl;
@@ -46,7 +35,6 @@ int main(int argc, char *argv[]) {
             }
         }
     } catch (const invalid_argument &e) {
-        cout << tresholdP << " | " << epsilonP << endl;
         cerr << "Los valores de threshold y epsilon deben ser numéricos." << endl;
         return 1;
     }
@@ -89,7 +77,6 @@ int main(int argc, char *argv[]) {
     cout << "Tiempo de ejecución: "
          << chrono::duration_cast<chrono::milliseconds>(end - start).count()
          << " ms" << endl;
-    cout << "Calidad de la solución: " << quality << "%" << endl;
-    cout << "(" << solution.first << " / " << omega.size() << ")" << endl;
+    cout << "Calidad de la solución: " << quality << "% (" << (quality / 100) * omega.size() << " caracteres)" << endl;
     return 0;
 }
