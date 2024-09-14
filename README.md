@@ -7,16 +7,25 @@ Implementación de algoritmo greedy aleatorizado para la construcción de soluci
 - Francisco Cea
 - Macarena Madrid
 
+## Requerimientos:
+- C++11
+- CMake 3.10
+- Make
+
 ## Instrucciones de uso:
 1. Clonar repositorio
 ```bash
-git clone https://github.com/ocastillo200/FFMSP.git
+$ git clone https://github.com/ocastillo200/FFMSP.git
 ```
 2. Compilar
 ```bash
-g++ main.cpp greedy.cpp
+$ cd FFMSP
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
 ```
-3. Ejecutar el programa
+3. Ejecutar el programa desde la carpeta build
 ```bash
-./a.out -<Greedy|GreedyA> -i <instancia.txt> -th <threshold {0,1}> -e <valor epsilon para desiciones aleatorias {0,1}>
+./greedy -<Greedy|GreedyA> -i <instancia.txt> -th <threshold {0,1}> -e <valor epsilon para desiciones aleatorias {0,1}>
 ```

@@ -1,84 +1,84 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <cstdlib>
-#include "greedy.h"
 #include <bits/stdc++.h>
+#include <cstdlib>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+
+#include "greedy.h"
+#include "utils.h"
 
 using namespace std;
 
-int getStringLengthFromFilename(const string &filename)
-{
-    size_t firstDash = filename.find('-');
-    size_t secondDash = filename.find('-', firstDash + 1);
-    string stringLengthStr = filename.substr(firstDash + 1, secondDash - firstDash - 1);
-    return stoi(stringLengthStr);
-}
-
-int main(int argc, char *argv[])
-{
-    if (argc < 4)
-    {
-        cerr << "Uso: " << argv[0] << " [-Greedy | -GreedyA] -i <instancia-problema> -th <threshold> -e <valor epsilon para greedy aleatorizado>" << endl;
+int main(int argc, char *argv[]) {
+    if (argc < 4) {
+        cerr << "Uso: " << argv[0]
+             << " [-Greedy | -GreedyA] -i <instancia-problema> -th <threshold> -e "
+             "<valor epsilon para greedy aleatorizado>"
+             << endl;
         return 1;
     }
-    string mode = argv[1];
-    string filename;
-    double threshold;
-    double epsilon;
-    string instanceFolder = "../instancias/";
-
-    for (int i = 2; i < argc; ++i)
-    {
-        if (string(argv[i]) == "-i")
-        {
-            filename = instanceFolder + argv[++i];
-        }
-        else if (string(argv[i]) == "-th")
-        {
-            threshold = stod(argv[++i]);
-        }
-        else if (string(argv[i]) == "-e" && mode == "-GreedyA")
-        {
-            epsilon = stod(argv[++i]);
-        }
-        else
-        {
-            cerr << "Argumento no válido: " << argv[i] << endl;
+    vector<string> args(argv, argv + argc);
+    const string mode =
+        containsFlag(argc, args, "GreedyA") ? "-GreedyA" : "-Greedy";
+    const string filename = readParam(argc, args, "i");
+    const string tresholdP = readParam(argc, args, "th");
+    const string epsilonP = readParam(argc, args, "e");
+    if (filename.empty() || tresholdP.empty()) {
+        cerr << "Faltan argumentos obligatorios." << endl;
+        return 1;
+    }
+    double threshold, epsilon;
+    try {
+        threshold = stod(tresholdP);
+        if (threshold < 0 || threshold > 1) {
+            cerr << "El valor de threshold debe estar entre 0 y 1." << endl;
             return 1;
         }
+        if (mode == "-GreedyA") {
+            if (epsilonP.empty()) {
+                cerr << "Falta el valor de epsilon." << endl;
+                return 1;
+            }
+            epsilon = stod(epsilonP);
+            if (epsilon < 0 || epsilon > 1) {
+                cerr << "El valor de epsilon debe estar entre 0 y 1." << endl;
+                return 1;
+            }
+        }
+    } catch (const invalid_argument &e) {
+        cout << tresholdP << " | " << epsilonP << endl;
+        cerr << "Los valores de threshold y epsilon deben ser numéricos." << endl;
+        return 1;
     }
-
     int stringLength = getStringLengthFromFilename(filename);
     vector<char> alphabet = {'A', 'C', 'G', 'T'};
     vector<string> omega;
     ifstream infile(filename);
     string line;
 
-    if (!infile)
-    {
+    if (!infile) {
         cerr << "No se pudo abrir el archivo: " << filename << endl;
         return 1;
     }
 
-    while (getline(infile, line))
-    {
+    while (getline(infile, line)) {
         omega.push_back(line);
     }
     infile.close();
 
     pair<int, string> solution;
-
-    if (mode == "-Greedy")
-    {
-        solution = constructGreedySolution(stringLength, alphabet, omega, 1, threshold);
-    }
-    else if (mode == "-GreedyA")
-    {
-        solution = constructGreedySolution(stringLength, alphabet, omega, epsilon, threshold);
-    }
-    else
-    {
+    chrono::high_resolution_clock::time_point start, end;
+    if (mode == "-Greedy") {
+        start = chrono::high_resolution_clock::now();
+        solution =
+            constructGreedySolution(stringLength, alphabet, omega, 1, threshold);
+        end = chrono::high_resolution_clock::now();
+    } else if (mode == "-GreedyA") {
+        start = chrono::high_resolution_clock::now();
+        solution = constructGreedySolution(stringLength, alphabet, omega, epsilon,
+                                           threshold);
+        end = chrono::high_resolution_clock::now();
+    } else {
         cerr << "Modo no válido. Usa -Greedy o -GreedyA." << endl;
         return 1;
     }
@@ -86,6 +86,9 @@ int main(int argc, char *argv[])
     double quality = solution.first / (double)omega.size() * 100;
 
     cout << "Solución construida: " << solution.second << endl;
+    cout << "Tiempo de ejecución: "
+         << chrono::duration_cast<chrono::milliseconds>(end - start).count()
+         << " ms" << endl;
     cout << "Calidad de la solución: " << quality << "%" << endl;
     cout << "(" << solution.first << " / " << omega.size() << ")" << endl;
     return 0;
