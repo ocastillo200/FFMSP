@@ -1,0 +1,64 @@
+Ejecución de 300 archivos con 200 palabras, con un threshold de 0.75 y epsilon de 0.2
+Resultados:
+
+Cantidad de caracteres: 300
+Media: 62.57% (187.71 caracteres)
+Desviación estándar: 3.12492% (9.37475 caracteres)
+Tiempo de ejecución: 11849 ms
+Tiempo de ejecución promedio: 59.245 ms
+
+Cantidad de caracteres: 600
+Media: 62.565% (375.39 caracteres)
+Desviación estándar: 3.59002% (21.5401 caracteres)
+Tiempo de ejecución: 12023 ms
+Tiempo de ejecución promedio: 60.115 ms
+
+Cantidad de caracteres: 800
+Media: 62.5% (500 caracteres)
+Desviación estándar: 3.57211% (28.5769 caracteres)
+Tiempo de ejecución: 12075 ms
+Tiempo de ejecución promedio: 60.375 ms
+
+
+Ejecución de 300 archivos con 200 palabras, con un threshold de 0.8 y epsilon de 0.2
+Resultados:
+
+Cantidad de caracteres: 300
+Media: 8.81% (26.43 caracteres)
+Desviación estándar: 2.05764% (6.17293 caracteres)
+Tiempo de ejecución: 11534 ms
+Tiempo de ejecución promedio: 57.67 ms
+
+Cantidad de caracteres: 600
+Media: 8.75% (52.5 caracteres)
+Desviación estándar: 2.07183% (12.431 caracteres)
+Tiempo de ejecución: 11741 ms
+Tiempo de ejecución promedio: 58.705 ms
+
+Cantidad de caracteres: 800
+Media: 9.015% (72.12 caracteres)
+Desviación estándar: 2.27866% (18.2293 caracteres)
+Tiempo de ejecución: 11596 ms
+Tiempo de ejecución promedio: 57.98 ms
+
+
+Ejecución de 300 archivos con 200 palabras, con un threshold de 0.85 y epsilon de 0.2
+Resultados:
+
+Cantidad de caracteres: 300
+Media: 0.07% (0.21 caracteres)
+Desviación estándar: 0.18735% (0.56205 caracteres)
+Tiempo de ejecución: 11549 ms
+Tiempo de ejecución promedio: 57.745 ms
+
+Cantidad de caracteres: 600
+Media: 0.075% (0.45 caracteres)
+Desviación estándar: 0.192029% (1.15217 caracteres)
+Tiempo de ejecución: 11719 ms
+Tiempo de ejecución promedio: 58.595 ms
+
+Cantidad de caracteres: 800
+Media: 0.105% (0.84 caracteres)
+Desviación estándar: 0.226881% (1.81505 caracteres)
+Tiempo de ejecución: 11744 ms
+Tiempo de ejecución promedio: 58.72 ms

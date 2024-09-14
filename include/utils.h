@@ -39,4 +39,33 @@ bool containsFlag(int argc, const std::vector<std::string> &argv, const std::str
  */
 int getStringLengthFromFilename(const std::string &filename);
 
+/**
+ * Analiza el nombre de un archivo y extrae dos partes:
+ * 1. Una cadena que representa el nombre antes del primer guion ('-').
+ * 2. Una cadena que representa la longitud de la cadena, que se encuentra entre el primer y el último guion.
+ *
+ * @param filename El nombre del archivo a analizar.
+ * @return Un par de cadenas donde la primera es el nombre y la segunda es la longitud de la cadena.
+ */
+std::pair<std::string, std::string> parseFilename(const std::string &filename);
+
+/**
+ * Obtiene una lista de archivos de una carpeta específica que coinciden con una cantidad de palabras dada.
+ *
+ * @param folder La ruta de la carpeta de la que se obtendrán los archivos.
+ * @param amountOfFiles La cantidad de palabras que deben tener los archivos.
+ * @return Un vector de pares donde cada par contiene la longitud de la cadena y la ruta del archivo.
+ */
+std::vector<std::pair<std::string, std::string>> getFilesFromFolder(const std::string &folder, const std::string &amountOfFiles);
+
+/**
+ * Calcula la desviación estándar de un conjunto de calidades.
+ *
+ * @param qualities Un vector de valores de calidad.
+ * @param mean La media de las calidades.
+ * @return La desviación estándar calculada.
+ */
+double calculateStandardDeviation(const std::vector<double> &qualities, double mean);
+
+
 #endif

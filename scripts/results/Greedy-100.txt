@@ -1,0 +1,55 @@
+Ejecución de 300 archivos con 100 palabras, con un threshold de 0.75
+Resultados:
+
+Cantidad de caracteres: 300
+Media: 88.34% (265.02 caracteres)
+Tiempo de ejecución: 7033 ms
+Tiempo de ejecución promedio: 70.33 ms
+
+Cantidad de caracteres: 600
+Media: 88.75% (532.5 caracteres)
+Tiempo de ejecución: 7163 ms
+Tiempo de ejecución promedio: 71.63 ms
+
+Cantidad de caracteres: 800
+Media: 87.92% (703.36 caracteres)
+Tiempo de ejecución: 7038 ms
+Tiempo de ejecución promedio: 70.38 ms
+
+
+Ejecución de 300 archivos con 100 palabras, con un threshold de 0.8
+Resultados:
+
+Cantidad de caracteres: 300
+Media: 52.54% (157.62 caracteres)
+Tiempo de ejecución: 7303 ms
+Tiempo de ejecución promedio: 73.03 ms
+
+Cantidad de caracteres: 600
+Media: 52.57% (315.42 caracteres)
+Tiempo de ejecución: 7221 ms
+Tiempo de ejecución promedio: 72.21 ms
+
+Cantidad de caracteres: 800
+Media: 52.48% (419.84 caracteres)
+Tiempo de ejecución: 7178 ms
+Tiempo de ejecución promedio: 71.78 ms
+
+
+Ejecución de 300 archivos con 100 palabras, con un threshold de 0.85
+Resultados:
+
+Cantidad de caracteres: 300
+Media: 12.82% (38.46 caracteres)
+Tiempo de ejecución: 7300 ms
+Tiempo de ejecución promedio: 73 ms
+
+Cantidad de caracteres: 600
+Media: 12.39% (74.34 caracteres)
+Tiempo de ejecución: 7252 ms
+Tiempo de ejecución promedio: 72.52 ms
+
+Cantidad de caracteres: 800
+Media: 13.05% (104.4 caracteres)
+Tiempo de ejecución: 7267 ms
+Tiempo de ejecución promedio: 72.67 ms
