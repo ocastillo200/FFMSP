@@ -6,6 +6,7 @@ Implementación de algoritmo greedy aleatorizado para la construcción de soluci
 - Oscar Castillo
 - Francisco Cea
 - Macarena Madrid
+- Viktoriya Koleva
 
 ## Requerimientos:
 - C++11
