@@ -3,7 +3,7 @@
 #include "utils.h"
 #include <dirent.h>
 #include <iostream>
-#include <cmath.h>
+#include <cmath>
 
 using namespace std;
 
