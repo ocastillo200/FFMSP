@@ -3,8 +3,7 @@
 #include "utils.h"
 #include <dirent.h>
 #include <iostream>
-
-namespace fs = std::__fs::filesystem;
+#include <cmath.h>
 
 using namespace std;
 
