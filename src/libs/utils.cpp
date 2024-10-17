@@ -1,8 +1,8 @@
-#include <filesystem>
+#include <dirent.h>
+#include <iostream>
+#include <cmath>
 
 #include "utils.h"
-
-namespace fs = std::__fs::filesystem;
 
 using namespace std;
 
@@ -47,12 +47,26 @@ pair<string, string> parseFilename(const string &filename) {
 
 vector<pair<string, string>> getFilesFromFolder(const string &folder, const string &amountOfFiles) {
     vector<pair<string, string>> files;
-    for (const auto &entry : fs::directory_iterator(folder)) {
-        pair<string, string> parsed = parseFilename(entry.path().filename().string());
+    struct dirent *entry;
+    DIR *dir = opendir(folder.c_str());
+
+    if (dir == nullptr) {
+        cout << "No se pudo abrir el directorio: " << folder << endl;
+        return files;
+    }
+    while ((entry = readdir(dir)) != nullptr) {
+        string filename = entry->d_name;
+        if (filename == "." || filename == "..") {
+            continue;
+        }
+
+        pair<string, string> parsed = parseFilename(filename);
         if (parsed.first == amountOfFiles) {
-            files.push_back(make_pair(parsed.second, entry.path().string()));
+            files.push_back(make_pair(parsed.second, folder + "/" + filename));
         }
     }
+
+    closedir(dir);
     return files;
 }
 

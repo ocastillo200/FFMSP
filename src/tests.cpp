@@ -1,15 +1,21 @@
 #include <iostream>
-#include <filesystem>
 #include <fstream>
 #include <map>
 #include <bits/stdc++.h>
+#include <sys/stat.h>
 
 #include "utils.h"
 #include "greedy.h"
 
-namespace fs = std::__fs::filesystem;
-
 using namespace std;
+
+bool isDirectory(const string &path) {
+    struct stat statbuf;
+    if (stat(path.c_str(), &statbuf) != 0) {
+        return false;
+    }
+    return S_ISDIR(statbuf.st_mode);
+}
 
 int main(int argc, char *argv[]) {
     vector<string> args(argv, argv + argc);
@@ -23,7 +29,7 @@ int main(int argc, char *argv[]) {
         cerr << "Uso: " << argv[0] << " [-Greedy | -GreedyA] -f <carpeta> -th <threshold> -e <epsilon (para greedy aleatorizado)> -n <cantidad de palabras>" << endl;
         return 1;
     }
-    if (!fs::is_directory(folder)) {
+    if (!isDirectory(folder)) {
         cerr << "El directorio '" << folder << "' no existe o no es valido." << endl;
         return 1;
     }
