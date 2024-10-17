@@ -6,6 +6,7 @@
 
 #include "greedy.h"
 #include "utils.h"
+#include "cmsa.h"
 
 using namespace std;
 
@@ -53,17 +54,17 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    while (getline(infile, line)) {
+    while (infile >> line) {
         omega.push_back(line);
     }
     infile.close();
-
     pair<int, string> solution;
     chrono::high_resolution_clock::time_point start, end;
     // if (mode == "-Greedy") {
     //     start = chrono::high_resolution_clock::now();
-    //     solution =
-    //         constructGreedySolution(stringLength, alphabet, omega, 1, threshold);
+    // solution =
+    //     constructGreedySolution(stringLength, alphabet, omega, 0.15, threshold);
+    // cout << solution.first << " " << solution.second << endl;
     //     end = chrono::high_resolution_clock::now();
     // } else if (mode == "-GreedyA") {
     //     start = chrono::high_resolution_clock::now();
@@ -82,5 +83,9 @@ int main(int argc, char *argv[]) {
     //      << chrono::duration_cast<chrono::milliseconds>(end - start).count()
     //      << " ms" << endl;
     // cout << "Calidad de la solución: " << quality << "% (" << (quality / 100) * omega.size() << " palabras)" << endl;
+    Solution s = CMSA(omega, alphabet, 10, 3, 300, epsilon, threshold, computeTime);
+    for(auto &c : s.components) {
+        cout << c.letter;
+    }
     return 0;
 }

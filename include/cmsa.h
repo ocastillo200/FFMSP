@@ -15,7 +15,7 @@ struct SolutionComponent {
     char letter;
     int age;
     bool operator==(const SolutionComponent& other) const {
-        return position == other.position && letter == other.letter && age == other.age;
+        return position == other.position && letter == other.letter;
     }
 };
 
@@ -36,7 +36,7 @@ struct Solution {
 
 Solution CMSA(const vector<string> &inputStrings, const vector<char> &alphabet, int na, int agemax, int tsolver, double epsilon, double t, double timelimit);
 Solution constructSolution(int stringLength, const vector<char> &alphabet, const vector<string> &omega, double epsilon, double t);
-Solution applyExactSolver(const unordered_set<SolutionComponent> &subInstance, const vector<string> &omega, int m, double t);
+Solution applyExactSolver(const unordered_set<SolutionComponent> &subInstance, const vector<string> &omega, int m, double t, int tsolver);
 void adapt(unordered_set<SolutionComponent> &C_prime, Solution &optimalSolution, int agemax);
 
 #endif

@@ -7,10 +7,9 @@
 #include <unordered_map>
 
 Solution CMSA(const vector<string> &inputStrings, const vector<char> &alphabet, int na, int agemax, int tsolver, double epsilon, double t, double timelimit) {
-    int m = inputStrings[0].size();
+    int m = inputStrings.size();
     Solution Sbsf;
     unordered_set<SolutionComponent> C_prime;
-    unordered_map<SolutionComponent, int> age;
     chrono::high_resolution_clock::time_point start = chrono::high_resolution_clock::now();
 
     while (chrono::duration<double>(chrono::high_resolution_clock::now() - start).count() < timelimit) {
@@ -18,12 +17,11 @@ Solution CMSA(const vector<string> &inputStrings, const vector<char> &alphabet, 
             Solution S = constructSolution(m, alphabet, inputStrings, epsilon, t);
             for (const auto &comp : S.components) {
                 if (C_prime.find(comp) == C_prime.end()) {
-                    age[comp] = 0;
                     C_prime.insert(comp);
                 }
             }
         }
-        Solution S_opt = applyExactSolver(C_prime, inputStrings, m, t);
+        Solution S_opt = applyExactSolver(C_prime, inputStrings, inputStrings[0].size(), t, tsolver);
         if (S_opt.fitness > Sbsf.fitness) {
             Sbsf = S_opt;
         }
@@ -46,7 +44,7 @@ Solution constructSolution(int stringLength, const vector<char> &alphabet, const
     return newSolution;
 }
 
-Solution applyExactSolver(const unordered_set<SolutionComponent> &subInstance, const vector<string> &omega, int m, double t) {
+Solution applyExactSolver(const unordered_set<SolutionComponent> &subInstance, const vector<string> &omega, int m, double t, int tsolver) {
     IloEnv env;
     Solution optimalSolution;
 
@@ -55,33 +53,32 @@ Solution applyExactSolver(const unordered_set<SolutionComponent> &subInstance, c
         IloInt n = omega.size();
         IloInt stringLength = m;
         IloNumVarArray vars(env);
-
-        std::vector<IloBoolVarArray> x(stringLength, IloBoolVarArray(env, omega[0].size()));
+        vector<char> alphabet = {'A', 'C', 'G', 'T'};
+        std::vector<IloBoolVarArray> x(stringLength, IloBoolVarArray(env, alphabet.size()));
 
         for (int j = 0; j < stringLength; ++j) {
-            for (int a = 0; a < omega[0].size(); ++a) {
+            for (int a = 0; a < alphabet.size(); ++a) {
                 vars.add(IloBoolVar(env));
                 x[j][a] = vars[vars.getSize() - 1];
             }
         }
 
-
         for (int j = 0; j < stringLength; ++j) {
             IloExpr sum(env);
-            for (int a = 0; a < omega[0].size(); ++a) {
+            for (int a = 0; a < alphabet.size(); ++a) {
                 sum += x[j][a];
             }
             model.add(sum == 1);
             sum.end();
         }
 
-
+        // FIX FALTA CONDICION Y_i
         IloExpr objective(env);
         for (int i = 0; i < n; ++i) {
             IloExpr hammingDistance(env);
             for (int j = 0; j < stringLength; ++j) {
-                for (int a = 0; a < omega[0].size(); ++a) {
-                    if (omega[i][j] != a + 'A') {
+                for (int a = 0; a < alphabet.size(); ++a) {
+                    if (omega[i][j] != alphabet[a]) {
                         hammingDistance += x[j][a];
                     }
                 }
@@ -93,15 +90,15 @@ Solution applyExactSolver(const unordered_set<SolutionComponent> &subInstance, c
 
 
         IloCplex cplex(model);
-        cplex.setParam(IloCplex::Param::TimeLimit, 300);
+        cplex.setOut(env.getNullStream());
+        cplex.setParam(IloCplex::Param::TimeLimit, tsolver);
         if (cplex.solve()) {
             std::cout << "Fitness: " << cplex.getObjValue() << std::endl;
             optimalSolution.fitness = cplex.getObjValue();
-            // Extract the optimal solution
             for (int j = 0; j < stringLength; ++j) {
-                for (int a = 0; a < omega[0].size(); ++a) {
+                for (int a = 0; a < alphabet.size(); ++a) {
                     if (cplex.getValue(x[j][a]) > 0.5) {
-                        SolutionComponent comp = {j, static_cast<char>(a + 'A'), 0};
+                        SolutionComponent comp = {j, alphabet[a], 0};
                         optimalSolution.components.push_back(comp);
                     }
                 }
@@ -120,14 +117,14 @@ Solution applyExactSolver(const unordered_set<SolutionComponent> &subInstance, c
 }
 
 void adapt(unordered_set<SolutionComponent> &C_prime, Solution &optimalSolution, int agemax) {
-
     for (auto comp : C_prime) {
         comp.age++;
     }
     for (SolutionComponent &comp : optimalSolution.components) {
-        C_prime.erase(comp);
+        if(C_prime.find(comp) != C_prime.end()) {
+            comp.age = 0;
+        }
     }
-
     for (auto it = C_prime.begin(); it != C_prime.end();) {
         if (it->age > agemax) {
             it = C_prime.erase(it);
