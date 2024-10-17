@@ -40,6 +40,7 @@ set(CMSA_SRC
     src/main.cpp
     src/libs/greedy.cpp
     src/libs/utils.cpp
+    src/libs/cmsa.cpp
 )
 
 set(TESTS_SRC
@@ -51,16 +52,24 @@ set(TESTS_SRC
 add_executable(cmsa ${CMSA_SRC})
 add_executable(tests ${TESTS_SRC})
 
-# Enlazar bibliotecas de CPLEX y Concert
+# Suppress deprecated warnings
+add_compile_options(-Wno-deprecated-declarations)
+
 target_link_libraries(cmsa
-    cplex
+    ilocplex
     concert
+    cplex
+    m
+    pthread
 )
 
-target_link_libraries(tests
-    cplex
-    concert
-)
+# Uncomment if needed for tests
+# target_link_libraries(tests
+#     ilocplex
+#     cplex
+#     concert
+#     m
+#     pthread
+# )
 
-# Incluir directorio de tus propias cabeceras
 include_directories(include)

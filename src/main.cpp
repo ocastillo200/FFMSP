@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
     const string epsilonP = readParam(argc, args, "e");
     const string computeTimeP = readParam(argc, args, "t");
     if (filename.empty() || tresholdP.empty() || epsilonP.empty() || computeTimeP.empty()) {
-        cerr << "Uso: " << argv[0] << "-i <instancia> -t <tiempo máxima> -th <threshold> -e <epsilon>" << endl;
+        cerr << "Uso: " << argv[0] << "-i <instancia> -t <tiempo máximo> -th <threshold> -e <epsilon>" << endl;
         return 1;
     }
     double threshold, epsilon;
