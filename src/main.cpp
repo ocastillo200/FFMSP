@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    while (getline(infile, line)) {
+    while (infile >> line) {
         omega.push_back(line);
     }
     infile.close();
