@@ -82,8 +82,8 @@ char chooseNextCharacter(const std::string &currentSolution, int position,
  * @return pair<int, string> Par que contiene la calidad de la solución y la cadena solución.
  */
 std::pair<int, std::string> constructGreedySolution(int stringLength,
-        const std::vector<char> &alphabet,
-        const std::vector<std::string> &omega,
-        double epsilon, double t);
+                                                    const std::vector<char> &alphabet,
+                                                    const std::vector<std::string> &omega,
+                                                    double epsilon, double t);
 
 #endif
