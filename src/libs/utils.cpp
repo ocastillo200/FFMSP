@@ -7,12 +7,11 @@
 using namespace std;
 
 string readParam(int argc, const vector<string> &argv, const string &key) {
+    string fullKey = "-" + key;
     for (int i = 1; i < argc; i++) {
         const string &arg = argv[i];
-        if (arg[0] != '-')
-            continue;
-        if (arg.find("-" + key) != string::npos) {
-            return i + 1 < argc ? argv[i + 1] : "";
+        if (arg == fullKey) {
+            return (i + 1 < argc) ? argv[i + 1] : "";
         }
     }
     return "";
