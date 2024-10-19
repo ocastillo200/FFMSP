@@ -12,13 +12,9 @@ std::pair<std::string, int> localSearch(const std::string &initialSolution, int 
     std::string bestSolution = initialSolution;
     int bestFitness = initialFitness;
     bool improvementFound = true;
-
     while (improvementFound)
     {
         improvementFound = false;
-        std::string currentBestSolution = bestSolution;
-        int currentBestFitness = bestFitness;
-
         for (size_t i = 0; i < bestSolution.size(); ++i)
         {
             for (const char &letter : alphabet)
@@ -27,35 +23,15 @@ std::pair<std::string, int> localSearch(const std::string &initialSolution, int 
                 {
                     std::string newSolution = bestSolution;
                     newSolution[i] = letter;
-
                     int newFitness = calculateCost(newSolution, inputStrings, t, 0, newSolution.size());
-
-                    // Si encontramos una mejora, aplicamos bestImprovement o firstImprovement
-                    if (newFitness > currentBestFitness)
+                    if (newFitness > bestFitness)
                     {
-                        currentBestSolution = newSolution;
-                        currentBestFitness = newFitness;
-                        improvementFound = true;
-
-                        if (!bestImprovement)
-                        {
-                            // Si es first improvement, paramos inmediatamente
-                            bestSolution = currentBestSolution;
-                            bestFitness = currentBestFitness;
-                            return {bestSolution, bestFitness};
-                        }
+                        return {newSolution, newFitness};
                     }
                 }
             }
         }
-
-        if (improvementFound)
-        {
-            bestSolution = currentBestSolution;
-            bestFitness = currentBestFitness;
-        }
     }
-
     return {bestSolution, bestFitness};
 }
 
@@ -69,30 +45,24 @@ std::pair<std::string, int> GRASP(const std::vector<std::string> &inputStrings, 
 
     for (int iter = 0; iter < maxIterations; ++iter)
     {
-        // Iniciar construcción y búsqueda local
         auto greedyResult = constructGreedySolution(stringLength, alphabet, inputStrings, epsilon, t);
         std::string currentSolution = greedyResult.second;
         int currentFitness = greedyResult.first;
+        std::string localsearchSolution;
+        int localsearchFitness;
 
-        std::tie(currentSolution, currentFitness) = localSearch(currentSolution, currentFitness, inputStrings, alphabet, t);
+        std::tie(localsearchSolution, localsearchFitness) = localSearch(currentSolution, currentFitness, inputStrings, alphabet, t);
 
-        // Si encontramos una mejor solución, la actualizamos y calculamos el tiempo transcurrido
-        if (currentFitness > bestFitness)
+        if (localsearchFitness > bestFitness)
         {
-            bestSolution = currentSolution;
-            bestFitness = currentFitness;
-
-            // Calcular el tiempo desde el inicio hasta que se encontró esta solución
+            bestSolution = localsearchSolution;
+            bestFitness = localsearchFitness;
             auto solutionTime = std::chrono::high_resolution_clock::now();
             double elapsedTime = std::chrono::duration_cast<std::chrono::seconds>(solutionTime - totalStart).count();
-
-            // Imprimir la solución y el tiempo en que fue encontrada
-            std::cout << "Solution found: " << bestSolution << std::endl
-                      << "Fitness: " << bestFitness << std::endl
-                      << "Time at which solution was found: " << elapsedTime << "s" << std::endl;
+            std::cout
+                << "Fitness: " << bestFitness << std::endl
+                << "Time at which solution was found: " << elapsedTime << "s" << std::endl;
         }
-
-        // Verificar el tiempo total transcurrido y el límite de tiempo
         auto currentTime = std::chrono::high_resolution_clock::now();
         double totalElapsedTime = std::chrono::duration_cast<std::chrono::seconds>(currentTime - totalStart).count();
         if (totalElapsedTime > timelimit || bestFitness == inputStrings.size())
