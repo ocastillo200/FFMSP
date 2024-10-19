@@ -69,7 +69,7 @@ char chooseNextCharacter(const string &currentSolution, int position, const vect
     mt19937 gen(rd());
     uniform_real_distribution<> dis(0.0, 1.0);
     double randomValue = dis(gen);
-    if (randomValue >= epsilon)
+    if (randomValue <= epsilon)
     {
         int bestCost = calculateCost(currentSolution, omega, t,
                                      bestStartPosition, lenght);

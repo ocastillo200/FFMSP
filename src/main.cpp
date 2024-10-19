@@ -12,16 +12,14 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     vector<string> args(argv, argv + argc);
-    const string mode =
-        containsFlag(argc, args, "GreedyA") ? "-GreedyA" : "-Greedy";
     const string filename = readParam(argc, args, "i");
     const string tresholdP = readParam(argc, args, "th");
     const string epsilonP = readParam(argc, args, "e");
     const string timelimitP = readParam(argc, args, "t");
 
-    if (filename.empty() || tresholdP.empty() || (mode == "-GreedyA" && epsilonP.empty()))
+    if (filename.empty() || tresholdP.empty() || epsilonP.empty() || timelimitP.empty())
     {
-        cerr << "Uso: " << argv[0] << " [-Greedy | -GreedyA] -i <instancia> -th <threshold> -e <epsilon (para greedy aleatorizado)>" << endl;
+        cerr << "Uso: " << argv[0] << "-i <instancia> -th <threshold> -e <epsilon> -t <tiempo límite>" << endl;
         return 1;
     }
     double threshold, epsilon, timelimit;
@@ -29,16 +27,15 @@ int main(int argc, char *argv[])
     {
         threshold = stod(tresholdP);
         timelimit = stod(timelimitP);
-        if (threshold < 0 || threshold > 1)
+        epsilon = stod(epsilonP);
+        if (threshold < 0 || threshold > 1 || epsilon < 0 || epsilon > 1)
         {
-            cerr << "El valor de threshold debe estar entre 0 y 1." << endl;
+            cerr << "El valor de threshold y el epsilon deben estar entre 0 y 1." << endl;
             return 1;
         }
-
-        epsilon = stod(epsilonP);
-        if (epsilon < 0 || epsilon > 1)
+        if (timelimit < 0)
         {
-            cerr << "El valor de epsilon debe estar entre 0 y 1." << endl;
+            cerr << "El valor de timelimit debe ser mayor a 0." << endl;
             return 1;
         }
     }
@@ -65,30 +62,18 @@ int main(int argc, char *argv[])
     }
     infile.close();
 
-    pair<string, int> solution = GRASP(omega, alphabet, 500, epsilon, threshold, timelimit);
 
-    // chrono::high_resolution_clock::time_point start, end;
-    // if (mode == "-Greedy") {
-    //     start = chrono::high_resolution_clock::now();
-    //     solution =
-    //         constructGreedySolution(stringLength, alphabet, omega, 1, threshold);
-    //     end = chrono::high_resolution_clock::now();
-    // } else if (mode == "-GreedyA") {
-    //     start = chrono::high_resolution_clock::now();
-    //     solution = constructGreedySolution(stringLength, alphabet, omega, epsilon,
-    //                                        threshold);
-    //     end = chrono::high_resolution_clock::now();
-    // } else {
-    //     cerr << "Modo no válido. Usa -Greedy o -GreedyA." << endl;
-    //     return 1;
-    // }
+    chrono::high_resolution_clock::time_point start, end;
+    start = chrono::high_resolution_clock::now();
+    pair<int, string> solution = GRASP(omega, alphabet, 500, epsilon, threshold, timelimit, true);
+    end = chrono::high_resolution_clock::now();
 
-    // double quality = solution.first / (double)omega.size() * 100;
+    double quality = solution.first / (double)omega.size() * 100;
 
-    // cout << "Solución construida: " << solution.second << endl;
-    // cout << "Tiempo de ejecución: "
-    //      << chrono::duration_cast<chrono::milliseconds>(end - start).count()
-    //      << " ms" << endl;
-    // cout << "Calidad de la solución: " << quality << "% (" << (quality / 100) * omega.size() << " palabras)" << endl;
+    cout << endl << "Solución construida: " << solution.second << endl;
+    cout << "Tiempo de ejecución: "
+         << chrono::duration_cast<chrono::milliseconds>(end - start).count()
+         << " ms" << endl;
+    cout << "Calidad de la solución: " << quality << "% (" << (quality / 100) * omega.size() << " palabras)" << endl;
     return 0;
 }

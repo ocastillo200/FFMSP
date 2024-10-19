@@ -6,36 +6,32 @@
 #include "greedy.h"
 #include <iomanip>
 
-// Función de búsqueda local que mejora la solución
 std::pair<std::string, int> localSearch(const std::string &initialSolution, int initialFitness, const std::vector<std::string> &inputStrings, const std::vector<char> &alphabet, double t, bool bestImprovement = true)
 {
     std::string bestSolution = initialSolution;
     int bestFitness = initialFitness;
-    bool improvementFound = true;
-    while (improvementFound)
+
+    for (size_t i = 0; i < bestSolution.size(); ++i)
     {
-        improvementFound = false;
-        for (size_t i = 0; i < bestSolution.size(); ++i)
+        for (const char &letter : alphabet)
         {
-            for (const char &letter : alphabet)
+            if (bestSolution[i] != letter)
             {
-                if (bestSolution[i] != letter)
+                std::string newSolution = bestSolution;
+                newSolution[i] = letter;
+                int newFitness = calculateCost(newSolution, inputStrings, t, 0, newSolution.size());
+                if (newFitness > bestFitness)
                 {
-                    std::string newSolution = bestSolution;
-                    newSolution[i] = letter;
-                    int newFitness = calculateCost(newSolution, inputStrings, t, 0, newSolution.size());
-                    if (newFitness > bestFitness)
-                    {
-                        return {newSolution, newFitness};
-                    }
+                    return {newSolution, newFitness};
                 }
             }
         }
     }
+
     return {bestSolution, bestFitness};
 }
 
-std::pair<std::string, int> GRASP(const std::vector<std::string> &inputStrings, const std::vector<char> &alphabet, int maxIterations, double epsilon, double t, double timelimit)
+std::pair<int, std::string> GRASP(const std::vector<std::string> &inputStrings, const std::vector<char> &alphabet, int maxIterations, double epsilon, double t, double timelimit, bool showLog)
 {
     int stringLength = inputStrings[0].size();
     std::string bestSolution;
@@ -59,9 +55,11 @@ std::pair<std::string, int> GRASP(const std::vector<std::string> &inputStrings, 
             bestFitness = localsearchFitness;
             auto solutionTime = std::chrono::high_resolution_clock::now();
             double elapsedTime = std::chrono::duration_cast<std::chrono::seconds>(solutionTime - totalStart).count();
-            std::cout
-                << "Fitness: " << bestFitness << std::endl
-                << "Time at which solution was found: " << elapsedTime << "s" << std::endl;
+            if(showLog) {
+                std::cout
+                        << "Fitness: " << bestFitness << std::endl
+                        << "Tiempo en que se encontró la solución: " << elapsedTime << "s" << std::endl;
+            }
         }
         auto currentTime = std::chrono::high_resolution_clock::now();
         double totalElapsedTime = std::chrono::duration_cast<std::chrono::seconds>(currentTime - totalStart).count();
@@ -71,5 +69,5 @@ std::pair<std::string, int> GRASP(const std::vector<std::string> &inputStrings, 
         }
     }
 
-    return {bestSolution, bestFitness};
+    return {bestFitness, bestSolution};
 }

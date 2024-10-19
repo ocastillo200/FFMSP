@@ -69,7 +69,7 @@ char chooseNextCharacter(const std::string &currentSolution, int position,
 
 /**
  *
- * Se mplementa un algoritmo greedy para construir una solución al problema FFMSP
+ * Se implementa un algoritmo greedy para construir una solución al problema FFMSP
  * El algoritmo comienza desde la mejor posición de inicio y construye la solución
  * carácter por carácter, eligiendo el siguiente carácter de forma greedy o aleatoria
  * según el valor de epsilon.
@@ -82,8 +82,8 @@ char chooseNextCharacter(const std::string &currentSolution, int position,
  * @return pair<int, string> Par que contiene la calidad de la solución y la cadena solución.
  */
 std::pair<int, std::string> constructGreedySolution(int stringLength,
-                                                    const std::vector<char> &alphabet,
-                                                    const std::vector<std::string> &omega,
-                                                    double epsilon, double t);
+        const std::vector<char> &alphabet,
+        const std::vector<std::string> &omega,
+        double epsilon, double t);
 
 #endif

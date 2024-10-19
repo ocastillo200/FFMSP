@@ -1,6 +1,6 @@
 # Far from most string problem (FFMSP)
 
-Implementación de algoritmo greedy aleatorizado para la construcción de soluciones iniciales para el problema.
+Implementación de algoritmo grasp para la construcción de soluciones iniciales para el problema.
 
 ## Integrantes:
 - Oscar Castillo
@@ -28,5 +28,5 @@ $ make
 ```
 3. Ejecutar el programa desde la carpeta build
 ```bash
-./greedy -<Greedy|GreedyA> -i <instancia.txt> -th <threshold {0,1}> -e <valor epsilon para desiciones aleatorias {0,1}>
+./grasp -i <instancia.txt> -th <threshold {0,1}> -e <valor epsilon para desiciones aleatorias {0,1}> -t <tiempo límite>
 ```

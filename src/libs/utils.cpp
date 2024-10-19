@@ -1,6 +1,7 @@
 #include <dirent.h>
 #include <iostream>
 #include <cmath>
+#include <map>
 
 #include "utils.h"
 
@@ -73,12 +74,27 @@ vector<pair<string, string>> getFilesFromFolder(const string &folder, const stri
         pair<string, string> parsed = parseFilename(filename);
         if (parsed.first == amountOfFiles)
         {
-            files.push_back(make_pair(parsed.second, folder + "/" + filename));
+            files.push_back(make_pair(parsed.second, folder + filename));
         }
     }
 
     closedir(dir);
-    return files;
+    sort(files.begin(), files.end(), [](const pair<string, string> &a, const pair<string, string> &b) {
+        return a.second < b.second;
+    });
+    map<string, vector<string>> filesMap;
+    for (const pair<string, string> &file : files) {
+        filesMap[file.first].push_back(file.second);
+    }
+
+    vector<pair<string, string>> finalFiles;
+    for (const pair<string, vector<string>> &file : filesMap) {
+        int limit = min(20, (int)file.second.size());
+        for (int i = 0; i < limit; ++i) {
+            finalFiles.push_back(make_pair(file.first, file.second[i]));
+        }
+    }
+    return finalFiles;
 }
 
 double calculateStandardDeviation(const vector<double> &qualities, double mean)
