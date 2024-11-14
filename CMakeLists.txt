@@ -7,6 +7,7 @@ set(GREEDY_SRC
     src/libs/greedy.cpp
     src/libs/utils.cpp
     src/libs/grasp.cpp
+    src/libs/genetic.cpp
 )
 
 set(TESTS_SRC
@@ -14,8 +15,9 @@ set(TESTS_SRC
     src/libs/greedy.cpp
     src/libs/utils.cpp
     src/libs/grasp.cpp
+    src/libs/genetic.cpp
 )
 
-add_executable(grasp ${GREEDY_SRC})
+add_executable(genetic ${GREEDY_SRC})
 add_executable(tests ${TESTS_SRC})
 include_directories(include)
