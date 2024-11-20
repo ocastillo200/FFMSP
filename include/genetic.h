@@ -17,6 +17,6 @@ std::vector<Individual> initializePopulation(int stringLength, const std::vector
 Individual tournamentSelection(const std::vector<Individual> &population);
 std::pair<Individual, Individual> crossover(const Individual &parent1, const Individual &parent2, int stringLength);
 void mutate(Individual &ind, const std::vector<char> &alphabet);
-std::pair<int, std::string> geneticAlgorithm(int stringLength, const std::vector<char> &alphabet, const std::vector<std::string> &omega, double epsilon, double t, double timeLimit, int populationSize, int maxGenerations, double mutationRate, double crossoverRate);
+std::pair<int, std::string> geneticAlgorithm(int stringLength, const std::vector<char> &alphabet, const std::vector<std::string> &omega, double epsilon, double t, double timeLimit, int populationSize, int maxGenerations, double mutationRate, double crossoverRate, int tunning);
 
 #endif
