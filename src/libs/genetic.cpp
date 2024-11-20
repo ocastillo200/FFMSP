@@ -12,9 +12,12 @@ using namespace std;
 
 mt19937 rng(time(0));
 
-vector<Individual> initializePopulation(int stringLength, const vector<char> &alphabet, const vector<string> &omega, double epsilon, double t, int populationSize)
+vector<Individual> initializePopulation(int stringLength, const vector<char> &alphabet, const vector<string> &omega, double epsilon, double t, int populationSize, int tunning)
 {
-    // cout << "Inicializando población..." << endl;
+    if (tunning == 0)
+    {
+        cout << "Inicializando población..." << endl;
+    }
     vector<Individual> population;
     for (int i = 0; i < populationSize; ++i)
     {
@@ -23,7 +26,10 @@ vector<Individual> initializePopulation(int stringLength, const vector<char> &al
         ind.fitness = greedySolution.first;
         population.push_back(ind);
     }
-    // cout << "Población inicializada." << endl;
+    if (tunning == 0)
+    {
+        cout << "Población inicializada." << endl;
+    }
     return population;
 }
 
@@ -69,9 +75,9 @@ void mutate(Individual &ind, const vector<char> &alphabet, double mutationRate)
     }
 }
 
-pair<int, string> geneticAlgorithm(int stringLength, const vector<char> &alphabet, const vector<string> &omega, double epsilon, double t, double timeLimit, int populationSize, int maxGenerations, double mutationRate, double crossoverRate)
+pair<int, string> geneticAlgorithm(int stringLength, const vector<char> &alphabet, const vector<string> &omega, double epsilon, double t, double timeLimit, int populationSize, int maxGenerations, double mutationRate, double crossoverRate, int tunning)
 {
-    vector<Individual> population = initializePopulation(stringLength, alphabet, omega, epsilon, t, populationSize);
+    vector<Individual> population = initializePopulation(stringLength, alphabet, omega, epsilon, t, populationSize, tunning);
     Individual best = *max_element(population.begin(), population.end(),
                                    [](const Individual &a, const Individual &b)
                                    {
@@ -120,12 +126,14 @@ pair<int, string> geneticAlgorithm(int stringLength, const vector<char> &alphabe
                                                  {
                                                      return a.fitness < b.fitness;
                                                  });
-        // cout << "Generación " << generation + 1 << ": Mejor Aptitud = " << bestIndividual.fitness
-        //      << " | Mejor Cadena = " << bestIndividual.genes << endl;
-
         if (bestIndividual.fitness > best.fitness)
         {
             best = bestIndividual;
+            if (tunning == 0)
+            {
+                cout << "Mejor solución encontrada en la generación " << generation + 1 << endl;
+                cout << "Fitness: " << best.fitness << endl;
+            }
         }
     }
     return {best.fitness, best.genes};
