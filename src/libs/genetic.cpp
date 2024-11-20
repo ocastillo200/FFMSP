@@ -84,6 +84,12 @@ pair<int, string> geneticAlgorithm(int stringLength, const vector<char> &alphabe
                                        return a.fitness < b.fitness;
                                    });
 
+    if (tunning == 0)
+    {
+        cout << "Mejor solución encontrada en la generación " << 0 << endl;
+        cout << "Fitness: " << best.fitness << endl;
+    }
+
     auto start = chrono::high_resolution_clock::now();
     int eliteCount = static_cast<int>(0.1 * populationSize);
 
