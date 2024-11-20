@@ -21,17 +21,19 @@ int main(int argc, char *argv[])
     const string maxGenerationsP = readParam(argc, args, "g");
     const string mutationRateP = readParam(argc, args, "m");
     const string crossoverRateP = readParam(argc, args, "c");
+    const string tunningP = readParam(argc, args, "tn");
 
     if (filename.empty() || tresholdP.empty() || epsilonP.empty() || timelimitP.empty() || populationSizeP.empty() || maxGenerationsP.empty() || mutationRateP.empty() || crossoverRateP.empty())
     {
         cerr << "Uso: " << argv[0] << "-i <instancia> -th <threshold> -e <epsilon> -t <tiempo límite> -p <tamaño población> -g <cantidad de generaciones> -m <probabilidad de mutación> -c <probabilidad de crossover> -tn <modo tunning>" << endl;
         return 1;
     }
-    int populationSize, maxGenerations, tunning;
+    int populationSize, maxGenerations, tunning = 0;
     double threshold, epsilon, timelimit, mutationRate, crossoverRate;
     try
     {
-        tunning = stoi(readParam(argc, args, "tn"));
+        if (tunningP.size() > 0)
+            tunning = stoi(tunningP);
         threshold = stod(tresholdP);
         timelimit = stod(timelimitP);
         epsilon = stod(epsilonP);
@@ -57,11 +59,6 @@ int main(int argc, char *argv[])
         if (timelimit < 0)
         {
             cerr << "El valor de timelimit debe ser mayor a 0." << endl;
-            return 1;
-        }
-        if (tunning != 0 && tunning != 1)
-        {
-            cerr << "El valor de tunning debe ser 0 o 1." << endl;
             return 1;
         }
     }
