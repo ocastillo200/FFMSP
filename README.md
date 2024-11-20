@@ -1,6 +1,6 @@
 # Far from most string problem (FFMSP)
 
-Implementación de algoritmo grasp para la construcción de soluciones iniciales para el problema.
+Implementación de algoritmo evolutivo para la construcción de soluciones mejoradas para el problema a partir de poblaciones generadas con greedy aleatorizado.
 
 ## Integrantes:
 - Oscar Castillo
@@ -28,5 +28,5 @@ $ make
 ```
 3. Ejecutar el programa desde la carpeta build
 ```bash
-./grasp -i <instancia.txt> -th <threshold {0,1}> -e <valor epsilon para desiciones aleatorias {0,1}> -t <tiempo límite>
+./genetic -i ../<instancia.txt> -th <threshold {0,1}> -e <valor epsilon para desiciones aleatorias {0,1}> -t <tiempo límite> -p <población> -g <generaciones>  -m <mutation rate {0,1}> -c <crossover rate {0,1}>
 ```
