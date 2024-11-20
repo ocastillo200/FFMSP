@@ -89,13 +89,7 @@ int main(int argc, char *argv[])
 
     end = chrono::high_resolution_clock::now();
 
-    double quality = solutionGenetic.first / (double)omega.size() * 100;
-
-    cout << endl
-         << "Solución construida: " << solutionGenetic.second << endl;
-    cout << "Tiempo de ejecución: "
-         << chrono::duration_cast<chrono::milliseconds>(end - start).count()
-         << " ms" << endl;
-    cout << "Calidad de la solución: " << quality << "% (" << (quality / 100) * omega.size() << " palabras)" << endl;
+    int quality = solutionGenetic.first;
+    cout << quality;
     return 0;
 }

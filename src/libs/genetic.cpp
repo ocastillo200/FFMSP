@@ -14,7 +14,7 @@ mt19937 rng(time(0));
 
 vector<Individual> initializePopulation(int stringLength, const vector<char> &alphabet, const vector<string> &omega, double epsilon, double t, int populationSize)
 {
-    cout << "Inicializando población..." << endl;
+    // cout << "Inicializando población..." << endl;
     vector<Individual> population;
     for (int i = 0; i < populationSize; ++i)
     {
@@ -23,7 +23,7 @@ vector<Individual> initializePopulation(int stringLength, const vector<char> &al
         ind.fitness = greedySolution.first;
         population.push_back(ind);
     }
-    cout << "Población inicializada." << endl;
+    // cout << "Población inicializada." << endl;
     return population;
 }
 
@@ -120,14 +120,13 @@ pair<int, string> geneticAlgorithm(int stringLength, const vector<char> &alphabe
                                                  {
                                                      return a.fitness < b.fitness;
                                                  });
-        cout << "Generación " << generation + 1 << ": Mejor Aptitud = " << bestIndividual.fitness
-             << " | Mejor Cadena = " << bestIndividual.genes << endl;
+        // cout << "Generación " << generation + 1 << ": Mejor Aptitud = " << bestIndividual.fitness
+        //      << " | Mejor Cadena = " << bestIndividual.genes << endl;
 
         if (bestIndividual.fitness > best.fitness)
         {
             best = bestIndividual;
         }
     }
-
     return {best.fitness, best.genes};
 }
