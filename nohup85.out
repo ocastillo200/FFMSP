@@ -1,0 +1,287 @@
+#------------------------------------------------------------------------------
+# irace: An implementation in R of (Elitist) Iterated Racing
+# Version: 3.5.6863679
+# Copyright (C) 2010-2020
+# Manuel Lopez-Ibanez     <manuel.lopez-ibanez@manchester.ac.uk>
+# Jeremie Dubois-Lacoste  
+# Leslie Perez Caceres    <leslie.perez.caceres@ulb.ac.be>
+#
+# This is free software, and you are welcome to redistribute it under certain
+# conditions.  See the GNU General Public License for details. There is NO
+# WARRANTY; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+# irace builds upon previous code from the race package:
+#     race: Racing methods for the selection of the best
+#     Copyright (C) 2003 Mauro Birattari
+#------------------------------------------------------------------------------
+# installed at: /home/shared/sisadapt7/R/x86_64-pc-linux-gnu-library/3.6/irace
+# called with: --scenario scenario85.txt
+batchmode 
+sge,pbs,torque,slurm,htcondor 
+# 2024-11-20 03:05:45 -03: Initialization
+# Elitist race
+# Elitist new instances: 1
+# Elitist limit: 2
+# nbIterations: 4
+# minNbSurvival: 4
+# nbParameters: 5
+# seed: 1206314038
+# confidence level: 0.95
+# budget: 1000
+# mu: 5
+# deterministic: FALSE
+
+# 2024-11-20 03:05:45 -03: Iteration 1 of 4
+# experimentsUsedSoFar: 0
+# remainingBudget: 1000
+# currentBudget: 250
+# nbConfigurations: 41
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|       Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+|x|          1|         41|          9|    -10.00000000|         41|00:04:29|   NA|  NA|    NA|
+|x|          2|         41|          9|    -5.000000000|         82|00:21:32|+0.00|0.50|0.4878|
+|x|          3|         41|          9|    -7.000000000|        123|00:03:31|+0.44|0.63|0.3500|
+|x|          4|         41|          9|    -8.250000000|        164|00:03:24|+0.57|0.67|0.2839|
+|-|          5|         13|          9|    -6.800000000|        205|00:11:02|+0.17|0.33|0.5738|
+|=|          6|         13|          9|    -5.666666667|        218|00:19:31|+0.00|0.17|0.7351|
+|=|          7|         13|          9|    -6.285714286|        231|00:03:24|+0.12|0.24|0.6774|
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+Best-so-far configuration:           9    mean value:     -6.285714286
+Description of the best-so-far configuration:
+  .ID. epsilon populationsize mutationrate crossoverrate maxgenerations .PARENT.
+9    9    0.43            500         0.02          0.71          10000       NA
+
+# 2024-11-20 04:12:42 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+   epsilon populationsize mutationrate crossoverrate maxgenerations
+9     0.43            500         0.02          0.71          10000
+1     0.79            100         0.05          0.03           1000
+25    0.14            200         0.02          0.60            200
+27    0.30             50         0.06          0.74          10000
+# 2024-11-20 04:12:42 -03: Iteration 2 of 4
+# experimentsUsedSoFar: 231
+# remainingBudget: 769
+# currentBudget: 256
+# nbConfigurations: 35
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|       Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+|x|          8|         35|         47|    -2.000000000|         35|00:07:41|   NA|  NA|    NA|
+|x|          7|         35|         47|    -5.000000000|         66|00:02:33|+0.35|0.68|0.5809|
+|x|          6|         35|         51|    -2.333333333|         97|00:13:05|+0.21|0.48|0.7964|
+|x|          3|         35|         47|    -4.500000000|        128|00:02:37|+0.40|0.55|0.6685|
+|-|          5|         10|         47|    -3.800000000|        159|00:07:48|+0.03|0.22|0.8511|
+|=|          4|         10|         47|    -4.500000000|        165|00:02:33|+0.10|0.25|0.8034|
+|-|          1|          6|          9|    -6.285714286|        171|00:02:31|+0.35|0.45|0.4340|
+|-|          2|          4|          9|    -5.500000000|        173|00:14:44|+0.11|0.22|0.4539|
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+Best-so-far configuration:           9    mean value:     -5.500000000
+Description of the best-so-far configuration:
+  .ID. epsilon populationsize mutationrate crossoverrate maxgenerations .PARENT.
+9    9    0.43            500         0.02          0.71          10000       NA
+
+# 2024-11-20 05:06:19 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+   epsilon populationsize mutationrate crossoverrate maxgenerations
+9     0.43            500         0.02          0.71          10000
+47    0.61           1000         0.04          0.22           1000
+1     0.79            100         0.05          0.03           1000
+63    0.48            300         0.03          0.19           2000
+# 2024-11-20 05:06:19 -03: Iteration 3 of 4
+# experimentsUsedSoFar: 404
+# remainingBudget: 596
+# currentBudget: 298
+# nbConfigurations: 36
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|       Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+|x|          9|         36|          9|    -10.00000000|         36|00:05:09|   NA|  NA|    NA|
+|x|          1|         36|         96|    -10.50000000|         68|00:02:53|+0.93|0.96|0.0918|
+|x|          8|         36|         96|    -7.333333333|        100|00:09:07|+0.34|0.56|0.6659|
+|x|          2|         36|         96|    -5.750000000|        132|00:17:21|+0.23|0.43|0.7812|
+|-|          6|          9|         96|    -4.800000000|        164|00:15:36|+0.10|0.28|0.7699|
+|=|          5|          9|         96|    -4.166666667|        169|00:08:53|+0.11|0.25|0.7767|
+|=|          7|          9|         96|    -5.000000000|        174|00:02:50|+0.15|0.27|0.7564|
+|-|          3|          6|         96|    -6.000000000|        179|00:02:47|+0.39|0.47|0.5107|
+|-|          4|          1|         96|    -6.666666667|        181|00:02:47|   NA|  NA|    NA|
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+Best-so-far configuration:          96    mean value:     -6.666666667
+Description of the best-so-far configuration:
+   .ID. epsilon populationsize mutationrate crossoverrate maxgenerations .PARENT.
+96   96    0.71           1000         0.01          0.29           1000       47
+
+# 2024-11-20 06:13:47 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+   epsilon populationsize mutationrate crossoverrate maxgenerations
+96    0.71           1000         0.01          0.29           1000
+# 2024-11-20 06:13:47 -03: Iteration 4 of 4
+# experimentsUsedSoFar: 585
+# remainingBudget: 415
+# currentBudget: 415
+# nbConfigurations: 42
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|       Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+|x|         10|         42|        127|    -2.000000000|         42|00:19:20|   NA|  NA|    NA|
+|x|          6|         42|        127|    -1.500000000|         83|00:17:18|+0.06|0.53|0.9486|
+|x|          4|         42|        127|    -5.000000000|        124|00:04:16|+0.13|0.42|0.8470|
+|x|          7|         42|        127|    -6.750000000|        165|00:03:09|+0.31|0.48|0.6934|
+|-|          1|         10|        127|    -8.400000000|        206|00:03:10|+0.24|0.39|0.5476|
+|-|          8|          5|        127|    -7.500000000|        215|00:09:56|+0.13|0.28|0.5979|
+|=|          5|          5|        127|    -6.714285714|        219|00:09:47|+0.21|0.32|0.5615|
+|=|          3|          5|        127|    -7.375000000|        223|00:03:04|+0.05|0.17|0.6681|
+|=|          9|          5|        127|    -7.555555556|        227|00:05:27|+0.02|0.13|0.6914|
+|=|          2|          5|        127|    -6.900000000|        231|00:18:46|+0.02|0.12|0.6242|
+|=|         11|          5|        127|    -6.272727273|        236|00:32:57|+0.02|0.11|0.5689|
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+Best-so-far configuration:         127    mean value:     -6.272727273
+Description of the best-so-far configuration:
+    .ID. epsilon populationsize mutationrate crossoverrate maxgenerations .PARENT.
+127  127    0.79           1000         0.01          0.38           1000       96
+
+# 2024-11-20 08:21:02 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+    epsilon populationsize mutationrate crossoverrate maxgenerations
+127    0.79           1000         0.01          0.38           1000
+110    0.77            500         0.01          0.31           1000
+143    0.72           1000         0.01          0.35           1000
+118    0.64           1000         0.01          0.31            500
+# 2024-11-20 08:21:02 -03: Iteration 5 of 5
+# experimentsUsedSoFar: 821
+# remainingBudget: 179
+# currentBudget: 179
+# nbConfigurations: 18
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|       Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+|x|         12|         18|        146|    -2.000000000|         18|00:17:22|   NA|  NA|    NA|
+|x|          7|         18|        146|    -7.000000000|         32|00:03:11|+0.11|0.56|0.8332|
+|x|          9|         18|        146|    -8.000000000|         46|00:05:35|+0.39|0.59|0.5956|
+|x|          8|         18|        146|    -6.750000000|         60|00:10:10|+0.51|0.64|0.4997|
+|-|          3|          7|        146|    -7.600000000|         74|00:03:11|+0.08|0.27|0.7650|
+|=|          6|          7|        154|    -6.833333333|         77|00:17:04|+0.07|0.22|0.6528|
+|=|         10|          7|        154|    -6.000000000|         80|00:19:14|+0.03|0.17|0.6983|
+|=|          4|          7|        127|    -6.500000000|         83|00:03:08|+0.04|0.16|0.7113|
+|=|          5|          7|        127|    -6.000000000|         86|00:10:02|+0.04|0.14|0.7275|
+|=|         11|          7|        127|    -5.400000000|         89|00:33:50|+0.03|0.13|0.6582|
+|=|          2|          7|        127|    -5.000000000|         92|00:19:34|-0.01|0.08|0.7148|
+|=|          1|          7|        127|    -5.833333333|         95|00:03:07|+0.02|0.10|0.7115|
+|=|         13|          7|        127|    -6.230769231|        102|00:05:37|+0.05|0.13|0.7060|
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+Best-so-far configuration:         127    mean value:     -6.230769231
+Description of the best-so-far configuration:
+    .ID. epsilon populationsize mutationrate crossoverrate maxgenerations .PARENT.
+127  127    0.79           1000         0.01          0.38           1000       96
+
+# 2024-11-20 10:52:14 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+    epsilon populationsize mutationrate crossoverrate maxgenerations
+127    0.79           1000         0.01          0.38           1000
+154    0.76            500         0.01          0.29            500
+110    0.77            500         0.01          0.31           1000
+146    0.77           1000         0.02          0.39           1000
+# 2024-11-20 10:52:14 -03: Iteration 6 of 6
+# experimentsUsedSoFar: 923
+# remainingBudget: 77
+# currentBudget: 77
+# nbConfigurations: 9
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|       Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+|x|         14|          9|        154|    -14.00000000|          9|00:03:11|   NA|  NA|    NA|
+|x|          3|          9|        154|    -13.50000000|         14|00:03:15|+0.18|0.59|0.6639|
+|x|         10|          9|        161|    -9.333333333|         19|00:20:12|+0.14|0.43|0.6816|
+|x|          4|          9|        160|    -10.50000000|         24|00:03:13|+0.10|0.32|0.7043|
+|=|          5|          9|        161|    -8.600000000|         29|00:10:22|+0.12|0.29|0.7158|
+|=|          2|          9|        161|    -7.333333333|         34|00:20:16|+0.11|0.26|0.7472|
+|=|         11|          9|        161|    -6.285714286|         39|00:35:18|+0.09|0.22|0.6607|
+|=|         13|          9|        161|    -6.875000000|         44|00:05:47|+0.12|0.23|0.6543|
+|-|          7|          8|        161|    -7.444444444|         49|00:03:13|-0.03|0.09|0.8028|
+|=|          6|          8|        163|    -6.800000000|         53|00:17:50|-0.03|0.07|0.8185|
+|=|          8|          8|        161|    -6.454545455|         57|00:10:28|-0.03|0.06|0.8178|
+|=|          1|          8|        161|    -7.000000000|         61|00:03:15|-0.01|0.07|0.8100|
+|=|          9|          8|        154|    -7.230769231|         65|00:05:51|-0.02|0.06|0.8279|
+|=|         12|          8|        154|    -6.714285714|         69|00:17:44|-0.04|0.04|0.8377|
+|=|         15|          8|        154|    -6.933333333|         77|00:05:47|-0.03|0.04|0.8392|
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+Best-so-far configuration:         154    mean value:     -6.933333333
+Description of the best-so-far configuration:
+    .ID. epsilon populationsize mutationrate crossoverrate maxgenerations .PARENT.
+154  154    0.76            500         0.01          0.29            500      110
+
+# 2024-11-20 13:38:03 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+    epsilon populationsize mutationrate crossoverrate maxgenerations
+154    0.76            500         0.01          0.29            500
+110    0.77            500         0.01          0.31           1000
+163    0.85           1000         0.02          0.41           1000
+161    0.74           1000         0.02          0.38           1000
+# 2024-11-20 13:38:03 -03: Stopped because budget is exhausted
+# Iteration: 7
+# nbIterations: 6
+# experimentsUsedSoFar: 1000
+# timeUsed: 0
+# remainingBudget: 0
+# currentBudget: 77
+# number of elites: 4
+# nbConfigurations: 9
+# Total CPU user time: 105.497, CPU sys time: 97.435, Wall-clock time: 37938.04
+# Best configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+    epsilon populationsize mutationrate crossoverrate maxgenerations
+154    0.76            500         0.01          0.29            500
+110    0.77            500         0.01          0.31           1000
+163    0.85           1000         0.02          0.41           1000
+161    0.74           1000         0.02          0.38           1000
+# Best configurations as commandlines (first number is the configuration ID; same order as above):
+154  -e 0.76 -p 500 -m 0.01 -c 0.29 -g 500
+110  -e 0.77 -p 500 -m 0.01 -c 0.31 -g 1000
+163  -e 0.85 -p 1000 -m 0.02 -c 0.41 -g 1000
+161  -e 0.74 -p 1000 -m 0.02 -c 0.38 -g 1000
+
+
+# Testing of elite configurations: 1 
+# Testing iteration configurations: FALSE 
+# 2024-11-20 13:38:03 -03: No test instances, skip testing
