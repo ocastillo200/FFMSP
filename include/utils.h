@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
 
 /**
  * Esta función busca un parámetro específico en la lista de argumentos de la línea de comandos
@@ -16,7 +17,6 @@
  */
 std::string readParam(int argc, const std::vector<std::string> &argv, const std::string &key);
 
-
 /**
  * Verifica si un argumento en específico se encuentra presente en los argumentos
  * proporcionados.
@@ -28,7 +28,6 @@ std::string readParam(int argc, const std::vector<std::string> &argv, const std:
  * @return false Si la bandera no está presente en los argumentos.
  */
 bool containsFlag(int argc, const std::vector<std::string> &argv, const std::string &key);
-
 
 /**
  * Obtiene la longitud de una cadena a partir del nombre de un archivo. La longitud
@@ -66,6 +65,5 @@ std::vector<std::pair<std::string, std::string>> getFilesFromFolder(const std::s
  * @return La desviación estándar calculada.
  */
 double calculateStandardDeviation(const std::vector<double> &qualities, double mean);
-
 
 #endif

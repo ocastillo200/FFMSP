@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cmath>
 #include <map>
+#include <algorithm>
 
 #include "utils.h"
 
@@ -79,18 +80,20 @@ vector<pair<string, string>> getFilesFromFolder(const string &folder, const stri
     }
 
     closedir(dir);
-    sort(files.begin(), files.end(), [](const pair<string, string> &a, const pair<string, string> &b) {
-        return a.second < b.second;
-    });
+    sort(files.begin(), files.end(), [](const pair<string, string> &a, const pair<string, string> &b)
+         { return a.second < b.second; });
     map<string, vector<string>> filesMap;
-    for (const pair<string, string> &file : files) {
+    for (const pair<string, string> &file : files)
+    {
         filesMap[file.first].push_back(file.second);
     }
 
     vector<pair<string, string>> finalFiles;
-    for (const pair<string, vector<string>> &file : filesMap) {
+    for (const pair<string, vector<string>> &file : filesMap)
+    {
         int limit = min(20, (int)file.second.size());
-        for (int i = 0; i < limit; ++i) {
+        for (int i = 0; i < limit; ++i)
+        {
             finalFiles.push_back(make_pair(file.first, file.second[i]));
         }
     }
