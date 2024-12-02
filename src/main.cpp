@@ -7,6 +7,7 @@
 #include "greedy.h"
 #include "utils.h"
 #include "genetic.h"
+#include "hybrid.h"
 
 using namespace std;
 
@@ -88,11 +89,13 @@ int main(int argc, char *argv[])
     chrono::high_resolution_clock::time_point start, end;
     start = chrono::high_resolution_clock::now();
     // pair<int, string> solution = GRASP(omega, alphabet, 500, epsilon, threshold, timelimit, true);
-    pair<int, string> solutionGenetic = geneticAlgorithm(stringLength, alphabet, omega, epsilon, threshold, timelimit, populationSize, maxGenerations, mutationRate, crossoverRate, tunning);
+    // pair<int, string> solutionHybrid = geneticAlgorithm(stringLength, alphabet, omega, epsilon, threshold, timelimit, populationSize, maxGenerations, mutationRate, crossoverRate, tunning);
+
+    pair<int, string> solutionHybrid = hybridAlgorithm(stringLength, alphabet, omega, epsilon, threshold, timelimit, populationSize, maxGenerations, mutationRate, crossoverRate, tunning);
 
     end = chrono::high_resolution_clock::now();
 
-    int quality = solutionGenetic.first;
+    int quality = solutionHybrid.first;
     if (tunning == 1)
     {
         cout << quality * -1;
@@ -100,7 +103,7 @@ int main(int argc, char *argv[])
     else
     {
         cout << "Calidad de la solución: " << quality << endl;
-        cout << "Solución: " << solutionGenetic.second << endl;
+        cout << "Solución: " << solutionHybrid.second << endl;
         cout << "Tiempo de ejecución: " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << " ms" << endl;
     }
     return 0;

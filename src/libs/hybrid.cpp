@@ -2,6 +2,8 @@
 #include "greedy.h"
 #include "utils.h"
 #include "genetic.h"
+#include "hybrid.h"
+#include "algorithm"
 
 std::pair<int, std::string> hybridAlgorithm(
     int stringLength,
@@ -14,7 +16,6 @@ std::pair<int, std::string> hybridAlgorithm(
     int maxGenerations,
     double mutationRate,
     double crossoverRate,
-    int maxLocalSearchIterations,
     int tuning = 0)
 {
     std::vector<Individual> population = initializePopulation(stringLength, alphabet, omega, epsilon, t, populationSize, tuning);
@@ -66,20 +67,21 @@ std::pair<int, std::string> hybridAlgorithm(
         }
         population = newPopulation;
 
-        // Local Search en la nueva población
+        // Local Search en los individuos de la población
         for (Individual &ind : population)
         {
-            std::pair<std::string, int> localSearchResult = localSearch(ind.genes, ind.fitness, omega, alphabet, t);
-            ind.genes = localSearchResult.first;
-            ind.fitness = localSearchResult.second;
+            int localSearchFitness;
+            std::string localSearchSolution;
+            std::tie(localSearchSolution, localSearchFitness) = localSearch(ind.genes, ind.fitness, omega, alphabet, t);
+            ind.genes = localSearchSolution;
+            ind.fitness = localSearchFitness;
         }
 
-        Individual bestIndividual = *std::max_element(population.begin(), population.end(),
-                                                      [](const Individual &a, const Individual &b)
-                                                      {
-                                                          return a.fitness < b.fitness;
-                                                      });
-
+        Individual bestIndividual = *max_element(population.begin(), population.end(),
+                                                 [](const Individual &a, const Individual &b)
+                                                 {
+                                                     return a.fitness < b.fitness;
+                                                 });
         if (bestIndividual.fitness > best.fitness)
         {
             best = bestIndividual;

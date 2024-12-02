@@ -13,8 +13,8 @@ struct Individual
     Individual(const std::string &genes) : genes(genes), fitness(0) {}
 };
 
-std::vector<Individual> initializePopulation(int stringLength, const vector<char> &alphabet, const vector<string> &omega, double epsilon, double t, int populationSize, int tunning);
-Individual tournamentSelection(const vector<Individual> &population, int populationSize);
+std::vector<Individual> initializePopulation(int stringLength, const std::vector<char> &alphabet, const std::vector<std::string> &omega, double epsilon, double t, int populationSize, int tunning);
+Individual tournamentSelection(const std::vector<Individual> &population, int populationSize);
 std::pair<Individual, Individual> crossover(const Individual &parent1, const Individual &parent2, int stringLength, double crossoverRate);
 void mutate(Individual &ind, const std::vector<char> &alphabet, double mutationRate);
 std::pair<int, std::string> geneticAlgorithm(int stringLength, const std::vector<char> &alphabet, const std::vector<std::string> &omega, double epsilon, double t, double timeLimit, int populationSize, int maxGenerations, double mutationRate, double crossoverRate, int tunning);

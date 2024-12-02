@@ -6,7 +6,7 @@
 #include "greedy.h"
 #include <iomanip>
 
-std::pair<std::string, int> localSearch(const std::string &initialSolution, int initialFitness, const std::vector<std::string> &inputStrings, const std::vector<char> &alphabet, double t, bool bestImprovement = true)
+std::pair<std::string, int> localSearch(const std::string &initialSolution, int initialFitness, const std::vector<std::string> &inputStrings, const std::vector<char> &alphabet, double t)
 {
     std::string bestSolution = initialSolution;
     int bestFitness = initialFitness;
