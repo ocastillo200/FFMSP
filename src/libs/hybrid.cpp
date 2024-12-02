@@ -1,0 +1,95 @@
+#include "grasp.h"
+#include "greedy.h"
+#include "utils.h"
+#include "genetic.h"
+
+std::pair<int, std::string> hybridAlgorithm(
+    int stringLength,
+    const std::vector<char> &alphabet,
+    const std::vector<std::string> &omega,
+    double epsilon,
+    double t,
+    double timeLimit,
+    int populationSize,
+    int maxGenerations,
+    double mutationRate,
+    double crossoverRate,
+    int maxLocalSearchIterations,
+    int tuning = 0)
+{
+    std::vector<Individual> population = initializePopulation(stringLength, alphabet, omega, epsilon, t, populationSize, tuning);
+    Individual best = *std::max_element(population.begin(), population.end(),
+                                        [](const Individual &a, const Individual &b)
+                                        {
+                                            return a.fitness < b.fitness;
+                                        });
+    if (tuning == 0)
+    {
+        std::cout << "Población inicial generada con Genético." << std::endl;
+        std::cout << "Mejor solución inicial: " << best.genes << " (Fitness: " << best.fitness << ")" << std::endl;
+    }
+    auto start = std::chrono::high_resolution_clock::now();
+    int iteration = 0;
+    while (iteration < maxGenerations)
+    {
+        auto currentTime = std::chrono::high_resolution_clock::now();
+        double elapsedTime = std::chrono::duration<double>(currentTime - start).count();
+        if (elapsedTime > timeLimit)
+        {
+            break;
+        }
+        std::sort(population.begin(), population.end(),
+                  [](const Individual &a, const Individual &b)
+                  { return a.fitness > b.fitness; });
+
+        int eliteCount = static_cast<int>(0.1 * populationSize);
+        std::vector<Individual> newPopulation(population.begin(), population.begin() + eliteCount);
+
+        while (newPopulation.size() < populationSize)
+        {
+            Individual parent1 = tournamentSelection(population, populationSize);
+            Individual parent2 = tournamentSelection(population, populationSize);
+
+            auto [child1, child2] = crossover(parent1, parent2, stringLength, crossoverRate);
+
+            mutate(child1, alphabet, mutationRate);
+            mutate(child2, alphabet, mutationRate);
+
+            child1.fitness = calculateCost(child1.genes, omega, t, 0, child1.genes.size());
+            child2.fitness = calculateCost(child2.genes, omega, t, 0, child2.genes.size());
+
+            newPopulation.push_back(child1);
+            if (newPopulation.size() < populationSize)
+            {
+                newPopulation.push_back(child2);
+            }
+        }
+        population = newPopulation;
+
+        // Local Search en la nueva población
+        for (Individual &ind : population)
+        {
+            std::pair<std::string, int> localSearchResult = localSearch(ind.genes, ind.fitness, omega, alphabet, t);
+            ind.genes = localSearchResult.first;
+            ind.fitness = localSearchResult.second;
+        }
+
+        Individual bestIndividual = *std::max_element(population.begin(), population.end(),
+                                                      [](const Individual &a, const Individual &b)
+                                                      {
+                                                          return a.fitness < b.fitness;
+                                                      });
+
+        if (bestIndividual.fitness > best.fitness)
+        {
+            best = bestIndividual;
+            if (tuning == 0)
+            {
+                std::cout << "Nueva mejor solución encontrada (Generación: " << iteration + 1 << ")" << std::endl;
+                std::cout << "Genes: " << best.genes << " (Fitness: " << best.fitness << ")" << std::endl;
+            }
+        }
+        ++iteration;
+    }
+    return {best.fitness, best.genes};
+}

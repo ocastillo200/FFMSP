@@ -42,23 +42,34 @@ std::pair<int, std::string> GRASP(const std::vector<std::string> &inputStrings, 
     for (int iter = 0; iter < maxIterations; ++iter)
     {
         auto greedyResult = constructGreedySolution(stringLength, alphabet, inputStrings, epsilon, t);
-        std::string currentSolution = greedyResult.second;
-        int currentFitness = greedyResult.first;
-        std::string localsearchSolution;
+        std::string currentSolution;
+        int currentFitness;
+        if (greedyResult.first > bestFitness)
+        {
+            currentSolution = greedyResult.second;
+            currentFitness = greedyResult.first;
+            bestFitness = currentFitness;
+            bestSolution = currentSolution;
+            auto solutionTime = std::chrono::high_resolution_clock::now();
+            double elapsedTime = std::chrono::duration_cast<std::chrono::seconds>(solutionTime - totalStart).count();
+            std::cout
+                << "Fitness: " << bestFitness << std::endl
+                << "Tiempo en que se encontró la solución: " << elapsedTime << "s" << std::endl;
+        }
         int localsearchFitness;
-
+        std::string localsearchSolution;
         std::tie(localsearchSolution, localsearchFitness) = localSearch(currentSolution, currentFitness, inputStrings, alphabet, t);
-
         if (localsearchFitness > bestFitness)
         {
             bestSolution = localsearchSolution;
             bestFitness = localsearchFitness;
             auto solutionTime = std::chrono::high_resolution_clock::now();
             double elapsedTime = std::chrono::duration_cast<std::chrono::seconds>(solutionTime - totalStart).count();
-            if(showLog) {
+            if (showLog)
+            {
                 std::cout
-                        << "Fitness: " << bestFitness << std::endl
-                        << "Tiempo en que se encontró la solución: " << elapsedTime << "s" << std::endl;
+                    << "Fitness: " << bestFitness << std::endl
+                    << "Tiempo en que se encontró la solución: " << elapsedTime << "s" << std::endl;
             }
         }
         auto currentTime = std::chrono::high_resolution_clock::now();
