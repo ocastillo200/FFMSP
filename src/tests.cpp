@@ -8,6 +8,7 @@
 #include "greedy.h"
 #include "grasp.h"
 #include "genetic.h"
+#include "hybrid.h"
 
 using namespace std;
 
@@ -109,7 +110,8 @@ int main(int argc, char *argv[]) {
         // pair<int, string> solution = (mode == "greedy" || mode == "greedyA") ?
         //                              constructGreedySolution(amountOfStringsInt, alphabet, omega, mode == "greedy" ? 1 : epsilon, threshold) :
         //                              GRASP(omega, alphabet, 500, epsilon, threshold, timeLimit, false);
-        pair<int, string> solution = geneticAlgorithm(amountOfStringsInt, alphabet, omega, epsilon, threshold, timeLimit, populationSize, maxGenerations, mutationRate, crossoverRate, tunning);
+        // pair<int, string> solution = geneticAlgorithm(amountOfStringsInt, alphabet, omega, epsilon, threshold, timeLimit, populationSize, maxGenerations, mutationRate, crossoverRate, tunning);
+        pair<int, string> solution = hybridAlgorithm(amountOfStringsInt, alphabet, omega, epsilon, threshold, timeLimit, populationSize, maxGenerations, mutationRate, crossoverRate, tunning);
         auto endTime = chrono::high_resolution_clock::now();
         double quality = solution.first / (double)omega.size() * 100;
         filesSolutions[file.first].push_back(quality);

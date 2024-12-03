@@ -27,7 +27,7 @@ error() {
 }
 
 tmpfile=$(mktemp)
-EXE=./genetic
+EXE=./hybrid
 FIXED_PARAMS="-t 60 -th 0.75 -tn 1"
 CANDIDATE=$1
 INSTANCEID=$2
