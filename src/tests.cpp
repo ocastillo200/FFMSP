@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
                 return 1;
             }
         }
-        if (mode == "genetic") {
+        if (mode == "genetic" || mode == "hybrid") {
             populationSize = stoi(populationSizeP);
             maxGenerations = stoi(maxGenerationsP);
             mutationRate = stod(mutationRateP);
