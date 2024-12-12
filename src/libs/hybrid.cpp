@@ -35,17 +35,35 @@ std::pair<int, std::string> hybridAlgorithm(
     {
         auto currentTime = std::chrono::high_resolution_clock::now();
         double elapsedTime = std::chrono::duration<double>(currentTime - start).count();
-        if (elapsedTime > timeLimit)
-        {
-            break;
-        }
+        if (elapsedTime >= timeLimit)
+            if (tuning == 0)
+            {
+                {
+                    std::cout << "Límite de tiempo alcanzado. " << elapsedTime << std::endl;
+                    break;
+                }
+                if (best.fitness == omega.size())
+                {
+                    std::cout << "Solución perfecta encontrada." << std::endl;
+                    break;
+                }
+            }
         std::sort(population.begin(), population.end(),
                   [](const Individual &a, const Individual &b)
                   { return a.fitness > b.fitness; });
 
-        int eliteCount = static_cast<int>(0.1 * populationSize);
+        int eliteCount = static_cast<int>(0.2 * populationSize);
         std::vector<Individual> newPopulation(population.begin(), population.begin() + eliteCount);
-
+        std::cout << "Mejores " << eliteCount << " individuos" << std::endl;
+        for (int i = 0; i < eliteCount; ++i)
+        {
+            std::cout << population[i].fitness << std::endl;
+        }
+        std::cout << "Demás individuos:" << std::endl;
+        for (int i = eliteCount; i < populationSize; ++i)
+        {
+            std::cout << population[i].fitness << std::endl;
+        }
         while (newPopulation.size() < populationSize)
         {
             Individual parent1 = tournamentSelection(population, populationSize);
@@ -67,7 +85,6 @@ std::pair<int, std::string> hybridAlgorithm(
         }
         population = newPopulation;
 
-        // Local Search en los individuos de la población
         for (Individual &ind : population)
         {
             int localSearchFitness;

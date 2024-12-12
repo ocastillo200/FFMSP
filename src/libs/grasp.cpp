@@ -22,12 +22,12 @@ std::pair<std::string, int> localSearch(const std::string &initialSolution, int 
                 int newFitness = calculateCost(newSolution, inputStrings, t, 0, newSolution.size());
                 if (newFitness > bestFitness)
                 {
+                    std::cout << "Nueva mejor solución con LS." << newFitness << std::endl;
                     return {newSolution, newFitness};
                 }
             }
         }
     }
-
     return {bestSolution, bestFitness};
 }
 
