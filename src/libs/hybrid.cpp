@@ -109,6 +109,5 @@ std::pair<int, std::string> hybridAlgorithm(
         }
         ++iteration;
     }
-    std::cout << "Maximo de iteraciones alcanzadas." << std::endl;
     return {best.fitness, best.genes};
 }
