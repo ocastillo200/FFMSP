@@ -10,6 +10,7 @@ struct Individual
 {
     std::string genes;
     int fitness;
+    bool isModified = true;
     Individual(const std::string &genes) : genes(genes), fitness(0) {}
 };
 

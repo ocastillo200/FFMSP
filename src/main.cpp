@@ -89,13 +89,13 @@ int main(int argc, char *argv[])
     chrono::high_resolution_clock::time_point start, end;
     start = chrono::high_resolution_clock::now();
     // pair<int, string> solution = GRASP(omega, alphabet, 500, epsilon, threshold, timelimit, true);
-    // pair<int, string> solutionHybrid = geneticAlgorithm(stringLength, alphabet, omega, epsilon, threshold, timelimit, populationSize, maxGenerations, mutationRate, crossoverRate, tunning);
-
-    pair<int, string> solutionHybrid = hybridAlgorithm(stringLength, alphabet, omega, epsilon, threshold, timelimit, populationSize, maxGenerations, mutationRate, crossoverRate, tunning);
+    pair<int, string> solution = geneticAlgorithm(stringLength, alphabet, omega, epsilon, threshold, timelimit, populationSize, maxGenerations, mutationRate, crossoverRate, tunning);
+    // pair<int, string> solution = constructGreedySolution(stringLength, alphabet, omega, epsilon, threshold);
+    // pair<int, string> solution = hybridAlgorithm(stringLength, alphabet, omega, epsilon, threshold, timelimit, populationSize, maxGenerations, mutationRate, crossoverRate, tunning);
 
     end = chrono::high_resolution_clock::now();
 
-    int quality = solutionHybrid.first;
+    int quality = solution.first;
     if (tunning == 1)
     {
         cout << quality * -1;
@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
     else
     {
         cout << "Calidad de la solución: " << quality << endl;
-        cout << "Solución: " << solutionHybrid.second << endl;
+        cout << "Solución: " << solution.second << endl;
         cout << "Tiempo de ejecución: " << chrono::duration_cast<chrono::milliseconds>(end - start).count() << " ms" << endl;
     }
     return 0;

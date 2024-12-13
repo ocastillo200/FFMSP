@@ -1,1 +1,1 @@
-/usr/bin/g++ CMakeFiles/hybrid.dir/src/main.cpp.o CMakeFiles/hybrid.dir/src/libs/greedy.cpp.o CMakeFiles/hybrid.dir/src/libs/utils.cpp.o CMakeFiles/hybrid.dir/src/libs/grasp.cpp.o CMakeFiles/hybrid.dir/src/libs/genetic.cpp.o CMakeFiles/hybrid.dir/src/libs/hybrid.cpp.o -o hybrid 
+/usr/bin/g++ -g CMakeFiles/hybrid.dir/src/main.cpp.o CMakeFiles/hybrid.dir/src/libs/greedy.cpp.o CMakeFiles/hybrid.dir/src/libs/utils.cpp.o CMakeFiles/hybrid.dir/src/libs/grasp.cpp.o CMakeFiles/hybrid.dir/src/libs/genetic.cpp.o CMakeFiles/hybrid.dir/src/libs/hybrid.cpp.o -o hybrid 

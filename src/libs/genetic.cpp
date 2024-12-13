@@ -77,13 +77,14 @@ void mutate(Individual &ind, const vector<char> &alphabet, double mutationRate)
 
 pair<int, string> geneticAlgorithm(int stringLength, const vector<char> &alphabet, const vector<string> &omega, double epsilon, double t, double timeLimit, int populationSize, int maxGenerations, double mutationRate, double crossoverRate, int tunning)
 {
+
     vector<Individual> population = initializePopulation(stringLength, alphabet, omega, epsilon, t, populationSize, tunning);
     Individual best = *max_element(population.begin(), population.end(),
                                    [](const Individual &a, const Individual &b)
                                    {
                                        return a.fitness < b.fitness;
                                    });
-
+    int threshold = t * best.genes.size();
     if (tunning == 0)
     {
         cout << "Mejor solución encontrada en la generación " << 0 << endl;
@@ -95,11 +96,19 @@ pair<int, string> geneticAlgorithm(int stringLength, const vector<char> &alphabe
 
     for (int generation = 0; generation < maxGenerations; ++generation)
     {
-        if (chrono::duration<double>(chrono::high_resolution_clock::now() - start).count() > timeLimit)
+
+        auto currentTime = std::chrono::high_resolution_clock::now();
+        double elapsedTime = std::chrono::duration<double>(currentTime - start).count();
+        if (elapsedTime >= timeLimit)
         {
+            std::cout << "Límite de tiempo alcanzado. " << elapsedTime << std::endl;
             break;
         }
-
+        if (best.fitness == omega.size())
+        {
+            std::cout << "Solución perfecta encontrada." << std::endl;
+            break;
+        }
         vector<Individual> newPopulation;
         sort(population.begin(), population.end(), [](const Individual &a, const Individual &b)
              { return a.fitness > b.fitness; });
@@ -115,8 +124,8 @@ pair<int, string> geneticAlgorithm(int stringLength, const vector<char> &alphabe
             mutate(child1, alphabet, mutationRate);
             mutate(child2, alphabet, mutationRate);
 
-            child1.fitness = calculateCost(child1.genes, omega, t, 0, child1.genes.size());
-            child2.fitness = calculateCost(child2.genes, omega, t, 0, child2.genes.size());
+            child1.fitness = calculateCost(child1.genes, omega, threshold, 0);
+            child2.fitness = calculateCost(child2.genes, omega, threshold, 0);
 
             newPopulation.push_back(child1);
             if (newPopulation.size() < populationSize)

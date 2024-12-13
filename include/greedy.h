@@ -25,11 +25,10 @@ int hammingDistance(const std::string &s1, const std::string &s2, int position);
  * @param omega Vector de cadenas de entrada.
  * @param t Umbral de similitud (entre 0 y 1).
  * @param position Posición desde la cual se comienza a calcular la distancia de Hamming (no se usa en esta implementación).
- * @param lenght Longitud de la solución (no se usa en esta implementación).
  * @return El número de cadenas que no cumplen con el umbral de similitud.
  */
 int calculateCost(const std::string &currentSolution, const std::vector<std::string> &omega,
-                  double t, int position, int lenght);
+                  double t, int position);
 
 /**
  * Encuentra la mejor posición de inicio para la solución greedy.
@@ -82,8 +81,8 @@ char chooseNextCharacter(const std::string &currentSolution, int position,
  * @return pair<int, string> Par que contiene la calidad de la solución y la cadena solución.
  */
 std::pair<int, std::string> constructGreedySolution(int stringLength,
-        const std::vector<char> &alphabet,
-        const std::vector<std::string> &omega,
-        double epsilon, double t);
+                                                    const std::vector<char> &alphabet,
+                                                    const std::vector<std::string> &omega,
+                                                    double epsilon, double t);
 
 #endif

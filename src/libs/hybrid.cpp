@@ -18,6 +18,7 @@ std::pair<int, std::string> hybridAlgorithm(
     double crossoverRate,
     int tuning = 0)
 {
+    int threshold = static_cast<int>(t * stringLength);
     std::vector<Individual> population = initializePopulation(stringLength, alphabet, omega, epsilon, t, populationSize, tuning);
     Individual best = *std::max_element(population.begin(), population.end(),
                                         [](const Individual &a, const Individual &b)
@@ -48,22 +49,12 @@ std::pair<int, std::string> hybridAlgorithm(
                     break;
                 }
             }
+
         std::sort(population.begin(), population.end(),
                   [](const Individual &a, const Individual &b)
                   { return a.fitness > b.fitness; });
-
         int eliteCount = static_cast<int>(0.2 * populationSize);
         std::vector<Individual> newPopulation(population.begin(), population.begin() + eliteCount);
-        std::cout << "Mejores " << eliteCount << " individuos" << std::endl;
-        for (int i = 0; i < eliteCount; ++i)
-        {
-            std::cout << population[i].fitness << std::endl;
-        }
-        std::cout << "Demás individuos:" << std::endl;
-        for (int i = eliteCount; i < populationSize; ++i)
-        {
-            std::cout << population[i].fitness << std::endl;
-        }
         while (newPopulation.size() < populationSize)
         {
             Individual parent1 = tournamentSelection(population, populationSize);
@@ -74,8 +65,10 @@ std::pair<int, std::string> hybridAlgorithm(
             mutate(child1, alphabet, mutationRate);
             mutate(child2, alphabet, mutationRate);
 
-            child1.fitness = calculateCost(child1.genes, omega, t, 0, child1.genes.size());
-            child2.fitness = calculateCost(child2.genes, omega, t, 0, child2.genes.size());
+            child1.fitness = calculateCost(child1.genes, omega, threshold, 0);
+            child2.fitness = calculateCost(child2.genes, omega, threshold, 0);
+            child1.isModified = true;
+            child2.isModified = true;
 
             newPopulation.push_back(child1);
             if (newPopulation.size() < populationSize)
@@ -85,15 +78,21 @@ std::pair<int, std::string> hybridAlgorithm(
         }
         population = newPopulation;
 
-        for (Individual &ind : population)
+        for (int i = 0; i < eliteCount; ++i)
         {
-            int localSearchFitness;
-            std::string localSearchSolution;
-            std::tie(localSearchSolution, localSearchFitness) = localSearch(ind.genes, ind.fitness, omega, alphabet, t);
-            ind.genes = localSearchSolution;
-            ind.fitness = localSearchFitness;
+            if (population[i].isModified)
+            {
+                int localSearchFitness;
+                std::string localSearchSolution;
+                std::tie(localSearchSolution, localSearchFitness) = localSearch(population[i].genes, population[i].fitness, omega, alphabet, t);
+                if (localSearchFitness <= population[i].fitness)
+                {
+                    population[i].isModified = false;
+                }
+                population[i].fitness = localSearchFitness;
+                population[i].genes = localSearchSolution;
+            }
         }
-
         Individual bestIndividual = *max_element(population.begin(), population.end(),
                                                  [](const Individual &a, const Individual &b)
                                                  {
@@ -110,5 +109,6 @@ std::pair<int, std::string> hybridAlgorithm(
         }
         ++iteration;
     }
+    std::cout << "Maximo de iteraciones alcanzadas." << std::endl;
     return {best.fitness, best.genes};
 }

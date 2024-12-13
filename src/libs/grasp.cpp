@@ -19,10 +19,9 @@ std::pair<std::string, int> localSearch(const std::string &initialSolution, int 
             {
                 std::string newSolution = bestSolution;
                 newSolution[i] = letter;
-                int newFitness = calculateCost(newSolution, inputStrings, t, 0, newSolution.size());
+                int newFitness = calculateCost(newSolution, inputStrings, t * newSolution.size(), 0);
                 if (newFitness > bestFitness)
                 {
-                    std::cout << "Nueva mejor solución con LS." << newFitness << std::endl;
                     return {newSolution, newFitness};
                 }
             }
