@@ -1,0 +1,7 @@
+Ejecución de 10 archivos con 100 palabras, con un threshold de 0.8
+Resultados:
+
+Cantidad de caracteres: 300
+Media: 67.6% (67.6 palabras)
+Tiempo de ejecución: 4.61394e+06 ms
+Tiempo de ejecución promedio: 46139.4 ms

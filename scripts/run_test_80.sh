@@ -17,7 +17,7 @@ for case in "${cases[@]}"; do
             if [ "$th" != "${th_list[0]}" ]; then
                 echo "\n" >> "$output_file"
             fi
-            $test_path -th $th -n $case -mode $mode -f $instances_path -t 10 -e 0.99 -p 300 -m 0.17 -c 0.19 -g 1000 -tn 1 >> "$output_file"
+            $test_path -th $th -n $case -mode $mode -f $instances_path -t 60 -e 0.99 -p 1000 -m 0.5 -c 0.87 -g 5000 -tn 1 >> "$output_file"
         done
     done
 done
