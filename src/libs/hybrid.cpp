@@ -22,9 +22,9 @@ std::pair<int, std::string> hybridAlgorithm(
     std::vector<Individual> population = initializePopulation(stringLength, alphabet, omega, epsilon, t, populationSize, tuning);
     Individual best = *std::max_element(population.begin(), population.end(),
                                         [](const Individual &a, const Individual &b)
-                                        {
-                                            return a.fitness < b.fitness;
-                                        });
+    {
+        return a.fitness < b.fitness;
+    });
     if (tuning == 0)
     {
         std::cout << "Población inicial generada con Genético." << std::endl;
@@ -36,7 +36,7 @@ std::pair<int, std::string> hybridAlgorithm(
     {
         auto currentTime = std::chrono::high_resolution_clock::now();
         double elapsedTime = std::chrono::duration<double>(currentTime - start).count();
-        if (elapsedTime >= timeLimit)
+        if (elapsedTime >= timeLimit) {
             if (tuning == 0)
             {
                 {
@@ -49,10 +49,14 @@ std::pair<int, std::string> hybridAlgorithm(
                     break;
                 }
             }
+            break;
+        }
 
         std::sort(population.begin(), population.end(),
                   [](const Individual &a, const Individual &b)
-                  { return a.fitness > b.fitness; });
+        {
+            return a.fitness > b.fitness;
+        });
         int eliteCount = static_cast<int>(0.2 * populationSize);
         std::vector<Individual> newPopulation(population.begin(), population.begin() + eliteCount);
         while (newPopulation.size() < populationSize)
@@ -94,10 +98,10 @@ std::pair<int, std::string> hybridAlgorithm(
             }
         }
         Individual bestIndividual = *max_element(population.begin(), population.end(),
-                                                 [](const Individual &a, const Individual &b)
-                                                 {
-                                                     return a.fitness < b.fitness;
-                                                 });
+                                    [](const Individual &a, const Individual &b)
+        {
+            return a.fitness < b.fitness;
+        });
         if (bestIndividual.fitness > best.fitness)
         {
             best = bestIndividual;

@@ -1,1 +1,0 @@
-/usr/bin/g++ CMakeFiles/grasp.dir/src/main.cpp.o CMakeFiles/grasp.dir/src/libs/greedy.cpp.o CMakeFiles/grasp.dir/src/libs/utils.cpp.o CMakeFiles/grasp.dir/src/libs/grasp.cpp.o -o grasp 
