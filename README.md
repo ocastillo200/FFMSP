@@ -28,5 +28,5 @@ $ make
 ```
 3. Ejecutar el programa desde la carpeta build
 ```bash
-./genetic -i ../<instancia.txt> -th <threshold {0,1}> -e <valor epsilon para desiciones aleatorias {0,1}> -t <tiempo límite> -p <población> -g <generaciones>  -m <mutation rate {0,1}> -c <crossover rate {0,1}>
+./hybrid -i ../<instancia.txt> -th <threshold {0,1}> -e <valor epsilon para desiciones aleatorias {0,1}> -t <tiempo límite> -p <población> -g <generaciones>  -m <mutation rate {0,1}> -c <crossover rate {0,1}>
 ```
